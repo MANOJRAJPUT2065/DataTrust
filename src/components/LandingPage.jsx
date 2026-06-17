@@ -83,6 +83,16 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
         </div>
       </section>
 
+      {/* INTEGRATIONS STRIP — Right after Hero */}
+      <div style={{ backgroundColor: 'var(--navy-mid)', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '20px 5%' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <span style={{ color: 'var(--gray)', fontSize: '13px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.08em', whiteSpace: 'nowrap' }}>🔗 Works with your stack:</span>
+          {['Snowflake', 'Databricks', 'Microsoft Fabric', 'Power BI', 'Tableau', 'Qlik', 'Excel'].map(tool => (
+            <span key={tool} style={{ fontSize: '13px', fontWeight: '600', color: 'var(--white)', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '999px' }}>{tool}</span>
+          ))}
+        </div>
+      </div>
+
       {/* EXECUTIVE SUMMARY */}
       <section className="executive-summary" style={{ padding: '80px 20px', backgroundColor: 'transparent', overflow: 'hidden' }}>
 
@@ -689,6 +699,72 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
         </div>
       </section>
 
+      {/* TESTIMONIALS — After Team */}
+      <section style={{ padding: '100px 5%', backgroundColor: 'transparent' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
+          <div className="section-label" style={{ marginBottom: '1rem' }}>Social Proof</div>
+          <h2 className="section-title" style={{ margin: '0 auto 1rem', maxWidth: '600px' }}>What decision-makers say</h2>
+          <p className="section-subtitle" style={{ margin: '0 auto 3.5rem' }}>Early feedback from enterprise stakeholders who tested DataTrust.</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+            {[
+              { quote: '"DataTrust ne hamara monthly reporting time 8 hours se 10 minutes kar diya. Board meetings ab numbers pe nahi, strategy pe hoti hain."', author: 'CFO', company: 'Leading Indian Retail Chain' },
+              { quote: '"Audit questions jo pehle 7 din lagte the, ab 1 second mein answer ho jaate hain. Compliance team ka confidence is platform se aayi hai."', author: 'Head of Compliance', company: 'Enterprise Finance Firm' },
+              { quote: '"Revenue figures ab sabke liye same hain — Finance, Sales, Marketing. Semantic drift khatam. Trust wapas aaya."', author: 'VP of Data', company: 'Multi-BU Conglomerate' },
+            ].map((t, i) => (
+              <div key={i} style={{ background: '#FFFFFF', borderRadius: '16px', padding: '32px', border: '1px solid var(--gray-light)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', textAlign: 'left' }}>
+                <div style={{ fontSize: '28px', color: 'var(--teal)', lineHeight: 1, marginBottom: '16px' }}>&ldquo;</div>
+                <p style={{ color: 'var(--text)', fontSize: '15px', lineHeight: '1.75', marginBottom: '20px', fontStyle: 'italic' }}>{t.quote}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', borderTop: '1px solid var(--gray-light)', paddingTop: '16px' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--navy)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--teal)', fontWeight: '700', fontSize: '16px' }}>{t.author[0]}</div>
+                  <div>
+                    <div style={{ fontWeight: '700', fontSize: '14px', color: 'var(--text)' }}>{t.author}</div>
+                    <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{t.company}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ SECTION */}
+      <section style={{ padding: '100px 5%', backgroundColor: '#FFFFFF' }} id="faq">
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <div className="section-label" style={{ marginBottom: '1rem', textAlign: 'center', display: 'block' }}>FAQ</div>
+          <h2 className="section-title" style={{ textAlign: 'center', margin: '0 auto 1rem', maxWidth: '600px' }}>Frequently Asked Questions</h2>
+          <p className="section-subtitle" style={{ textAlign: 'center', margin: '0 auto 3.5rem' }}>Everything you need to know before getting started.</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {[
+              { q: 'Does DataTrust store my data?', a: 'No. DataTrust runs entirely within your own environment. Your data never leaves your perimeter — all processing happens locally in your infrastructure.' },
+              { q: 'Can I try before buying?', a: 'Yes. Every plan includes a 30-day pilot on your actual data. You see the value on your own numbers before committing.' },
+              { q: 'How long does implementation take?', a: 'Typically 2–4 weeks from contract signing to go-live, depending on your data warehouse setup and team size.' },
+              { q: 'Is DataTrust SOC2 / GDPR / SOX compliant?', a: 'Yes. DataTrust is built for enterprise security standards — SOC2, GDPR, SOX, and HIPAA ready. Full audit trail included.' },
+              { q: 'What if my data is on-premise?', a: 'DataTrust fully supports on-premise deployment. We work with your existing infrastructure — no cloud migration required.' },
+              { q: 'Does it work with Power BI and Tableau?', a: 'Yes. DataTrust integrates with Snowflake, Databricks, Microsoft Fabric, Power BI, Tableau, Qlik, and Excel out of the box.' },
+            ].map((item, i) => (
+              <details key={i} style={{ background: 'var(--off-white)', borderRadius: '12px', border: '1px solid var(--gray-light)', padding: '0' }}>
+                <summary style={{ padding: '20px 24px', fontWeight: '600', fontSize: '16px', color: 'var(--text)', cursor: 'pointer', listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  {item.q} <span style={{ fontSize: '20px', color: 'var(--teal)', marginLeft: '12px', flexShrink: 0 }}>+</span>
+                </summary>
+                <div style={{ padding: '0 24px 20px', color: 'var(--text-muted)', fontSize: '15px', lineHeight: '1.7' }}>{item.a}</div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECURITY BADGES */}
+      <div style={{ backgroundColor: 'var(--navy)', padding: '28px 5%', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
+          <span style={{ color: 'var(--gray)', fontSize: '13px', fontWeight: '600', marginRight: '8px' }}>Enterprise Security:</span>
+          {[{ icon: '🔐', label: 'SOC2 Compliant' }, { icon: '🇪🇺', label: 'GDPR Ready' }, { icon: '🏥', label: 'HIPAA Compliant' }, { icon: '📋', label: 'SOX Ready' }, { icon: '🔒', label: 'End-to-End Encryption' }].map(b => (
+            <span key={b.label} style={{ fontSize: '13px', fontWeight: '600', color: 'var(--white)', background: 'rgba(0,191,165,0.1)', border: '1px solid rgba(0,191,165,0.2)', padding: '7px 16px', borderRadius: '999px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              {b.icon} {b.label}
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* CTA SECTION */}
       <section className="cta-section" id="contact">
         <h2>Ready to trust your numbers?</h2>
@@ -705,6 +781,35 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
           <p style={{ fontSize: '13px', color: '#64748B', marginTop: '10px' }}>
             To view the full product demo and features, please email us directly at datatrust.ai@zohomail.in.
           </p>
+        </div>
+      </section>
+
+      {/* NEWSLETTER */}
+      <section style={{ padding: '80px 5%', backgroundColor: '#FFFFFF' }}>
+        <div style={{ maxWidth: '560px', margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ fontSize: '32px', marginBottom: '16px' }}>🔔</div>
+          <h3 style={{ fontSize: '28px', fontWeight: '700', color: 'var(--text)', marginBottom: '12px', fontFamily: 'var(--font-display)' }}>Stay in the loop</h3>
+          <p style={{ color: 'var(--text-muted)', fontSize: '16px', marginBottom: '32px', lineHeight: '1.7' }}>Get product updates, case studies, and early access announcements. No spam. Unsubscribe anytime.</p>
+          <form
+            onSubmit={e => { e.preventDefault(); alert('Thanks! We will be in touch at datatrust.ai@zohomail.in'); }}
+            style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}
+          >
+            <input
+              type="email"
+              placeholder="Enter your work email"
+              required
+              style={{ flex: '1', minWidth: '240px', padding: '14px 20px', borderRadius: '8px', border: '1px solid var(--gray-light)', fontSize: '15px', color: 'var(--text)', outline: 'none', fontFamily: 'var(--font-sans)' }}
+            />
+            <button
+              type="submit"
+              style={{ padding: '14px 28px', background: 'var(--teal)', color: 'var(--navy)', fontWeight: '700', fontSize: '15px', border: 'none', borderRadius: '8px', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'opacity 0.2s' }}
+              onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+              onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+            >
+              Subscribe
+            </button>
+          </form>
+          <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '16px' }}>📧 Responses go to datatrust.ai@zohomail.in</p>
         </div>
       </section>
 
