@@ -15,7 +15,7 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
         }
       });
     }, { threshold: 0.2 });
-    
+
     document.querySelectorAll('.flow-animate').forEach(el => observer.observe(el));
     return () => observer.disconnect();
   }, []);
@@ -84,8 +84,8 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
       </section>
 
       {/* EXECUTIVE SUMMARY */}
-      <section className="executive-summary" style={{ padding: '80px 20px', backgroundColor: '#f8fafc', overflow: 'hidden' }}>
-        
+      <section className="executive-summary" style={{ padding: '80px 20px', backgroundColor: 'transparent', overflow: 'hidden' }}>
+
         <style>{`
           .pipeline-wrapper {
             position: relative;
@@ -136,7 +136,7 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
 
         <div className="section-label" style={{ textAlign: 'center', marginBottom: '40px' }}>Overview</div>
         <div className="pipeline-wrapper" style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '40px' }}>
-          
+
           <div className="summary-block flow-animate flow-delay-1" style={{ backgroundColor: 'transparent', padding: '20px 0' }}>
             <h3 style={{ fontSize: '24px', color: '#1e293b', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>🔴 Problem Statement</h3>
             <p className="flow-content" style={{ color: '#475569', fontSize: '16px', lineHeight: '1.8', margin: 0 }}>
@@ -574,28 +574,117 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
         </div>
       </section>
 
-      {/* CREATOR PROFILE */}
-      <section className="profile-section" style={{ padding: '80px 20px', backgroundColor: '#ffffff' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-          <div className="section-label" style={{ marginBottom: '30px' }}>Meet the Creator</div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
-            <img 
-              src="https://media.licdn.com/dms/image/v2/D5603AQFhJDtaHrHn2A/profile-displayphoto-scale_400_400/B56Z5vZEShIoAk-/0/1779985304253?e=1783555200&v=beta&t=F0gCCbUwZ7j1vERCtOraIUSxZoox3OGDeyOn2pDbP04" 
-              alt="Manoj Rajput" 
-              style={{ width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover', border: '4px solid #1E88E5', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }} 
-            />
-            <div>
-              <h3 style={{ fontSize: '28px', color: '#0f172a', marginBottom: '5px', fontWeight: 'bold' }}>Manoj Rajput</h3>
-              <p style={{ color: '#64748b', fontSize: '18px', marginBottom: '25px' }}>Founder & Creator of DataTrust</p>
-              <a 
-                href="https://www.linkedin.com/in/manojrajput2065/" 
-                target="_blank" 
+      {/* MEET THE TEAM */}
+      <section style={{ padding: '100px 5%', backgroundColor: 'var(--navy)' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
+          <div className="section-label" style={{ marginBottom: '1rem' }}>The People Behind DataTrust</div>
+          <h2 className="section-title" style={{ color: '#fff', margin: '0 auto 1rem', maxWidth: '600px' }}>Built by someone who lived the problem</h2>
+          <p className="section-subtitle" style={{ color: 'var(--gray)', margin: '0 auto 3.5rem', maxWidth: '580px' }}>
+            Not a random SaaS idea — DataTrust was born from real enterprise pain.
+          </p>
+
+          {/* Team Cards */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '32px', flexWrap: 'wrap' }}>
+            <div style={{
+              background: 'var(--navy-mid)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: '20px',
+              padding: '40px',
+              maxWidth: '360px',
+              width: '100%',
+              textAlign: 'center',
+              transition: 'transform 0.3s, box-shadow 0.3s',
+              boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+            }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 20px 50px rgba(0,0,0,0.4)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 10px 40px rgba(0,0,0,0.3)'; }}
+            >
+              {/* Avatar */}
+              <div style={{ position: 'relative', display: 'inline-block', marginBottom: '24px' }}>
+                <img
+                  src="https://media.licdn.com/dms/image/v2/D5603AQFhJDtaHrHn2A/profile-displayphoto-scale_400_400/B56Z5vZEShIoAk-/0/1779985304253?e=1783555200&v=beta&t=F0gCCbUwZ7j1vERCtOraIUSxZoox3OGDeyOn2pDbP04"
+                  alt="Manoj Rajput"
+                  style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--teal)', boxShadow: '0 0 0 6px rgba(0,191,165,0.12)' }}
+                />
+                <div style={{ position: 'absolute', bottom: '4px', right: '4px', background: 'var(--teal)', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', border: '2px solid var(--navy-mid)' }}>✓</div>
+              </div>
+
+              {/* Name & Title */}
+              <h3 style={{ fontSize: '22px', fontWeight: '700', color: '#fff', marginBottom: '4px' }}>Manoj Singh Rajput</h3>
+              <p style={{ color: 'var(--teal)', fontWeight: '600', fontSize: '14px', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Founder & Creator</p>
+
+              {/* Bio */}
+              <p style={{ color: 'var(--gray)', fontSize: '14px', lineHeight: '1.7', marginBottom: '24px' }}>
+                "I watched finance teams spend entire Mondays manually exporting data and reconciling numbers that still didn't match. DataTrust is the platform I wished existed."
+              </p>
+
+              {/* Badges */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center', marginBottom: '28px' }}>
+                {['Data Engineering', 'Enterprise SaaS', 'AI/ML', 'Governance'].map(tag => (
+                  <span key={tag} style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '999px', background: 'rgba(0,191,165,0.1)', color: 'var(--teal)', border: '1px solid rgba(0,191,165,0.2)', fontWeight: '600' }}>{tag}</span>
+                ))}
+              </div>
+
+              {/* LinkedIn Button */}
+              <a
+                href="https://www.linkedin.com/in/manojrajput2065/"
+                target="_blank"
                 rel="noreferrer"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#0A66C2', color: '#ffffff', padding: '12px 28px', borderRadius: '30px', textDecoration: 'none', fontWeight: '600', fontSize: '16px', transition: 'background 0.3s', boxShadow: '0 4px 12px rgba(10, 102, 194, 0.3)' }}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#0A66C2', color: '#ffffff', padding: '11px 26px', borderRadius: '30px', textDecoration: 'none', fontWeight: '600', fontSize: '14px', boxShadow: '0 4px 12px rgba(10,102,194,0.35)', transition: 'opacity 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
               >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg>
                 Connect on LinkedIn
               </a>
             </div>
+
+            {/* Card 2 - Sushil */}
+            <div style={{
+              background: 'var(--navy-mid)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: '20px',
+              padding: '40px',
+              maxWidth: '360px',
+              width: '100%',
+              textAlign: 'center',
+              transition: 'transform 0.3s, box-shadow 0.3s',
+              boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+            }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 20px 50px rgba(0,0,0,0.4)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 10px 40px rgba(0,0,0,0.3)'; }}
+            >
+              <div style={{ position: 'relative', display: 'inline-block', marginBottom: '24px' }}>
+                <img
+                  src="https://media.licdn.com/dms/image/v2/D5603AQFm-xoz0HDvkQ/profile-displayphoto-crop_800_800/B56ZypFfKyIIAI-/0/1772363315544?e=1783555200&v=beta&t=48nCotodmY4GQZ-0Bt0edbSjDoqmBt0RXLGjLjjInoo"
+                  alt="Sushil Lalhal"
+                  style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--blue-light)', boxShadow: '0 0 0 6px rgba(30,136,229,0.12)' }}
+                />
+                <div style={{ position: 'absolute', bottom: '4px', right: '4px', background: 'var(--blue-light)', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', border: '2px solid var(--navy-mid)' }}>&#10003;</div>
+              </div>
+              <h3 style={{ fontSize: '22px', fontWeight: '700', color: '#fff', marginBottom: '4px' }}>Sushil Lalhal</h3>
+              <p style={{ color: 'var(--blue-light)', fontWeight: '600', fontSize: '14px', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Co-Founder</p>
+              <p style={{ color: 'var(--gray)', fontSize: '14px', lineHeight: '1.7', marginBottom: '24px' }}>
+                "Bringing the technical backbone to DataTrust — ensuring our platform's architecture is not just scalable, but enterprise-grade from day one."
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center', marginBottom: '28px' }}>
+                {['Backend Systems', 'Cloud Architecture', 'Data Pipelines', 'Security'].map(tag => (
+                  <span key={tag} style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '999px', background: 'rgba(30,136,229,0.1)', color: 'var(--blue-light)', border: '1px solid rgba(30,136,229,0.2)', fontWeight: '600' }}>{tag}</span>
+                ))}
+              </div>
+              <a
+                href="https://www.linkedin.com/in/sushil-lalhal-24396b300/"
+                target="_blank"
+                rel="noreferrer"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#0A66C2', color: '#ffffff', padding: '11px 26px', borderRadius: '30px', textDecoration: 'none', fontWeight: '600', fontSize: '14px', boxShadow: '0 4px 12px rgba(10,102,194,0.35)', transition: 'opacity 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg>
+                Connect on LinkedIn
+              </a>
+            </div>
+
           </div>
         </div>
       </section>

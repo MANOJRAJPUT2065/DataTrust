@@ -15,7 +15,7 @@
   --teal: #00BFA5;
   --teal-glow: rgba(0, 191, 165, 0.15);
   --white: #FFFFFF;
-  --off-white: #F5F7FA;
+  --off-white: #E8ECF2;
   --gray-light: #E8ECF0;
   --gray-mid: #CBD5E1;
   --gray: #94A3B8;
@@ -40,9 +40,13 @@ html {
 body {
   font-family: var(--font-sans);
   color: var(--text);
-  background: var(--white);
+  background: #E8ECF2;
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+.landing-layout {
+  background: #E8ECF2;
 }
 
 /* Base Link Reset */
@@ -283,7 +287,7 @@ section {
 
 /* PROBLEMS GRID */
 .problems {
-  background: var(--off-white);
+  background: transparent;
 }
 
 .problems-grid {
@@ -294,11 +298,11 @@ section {
 }
 
 .problem-card {
-  background: var(--white);
+  background: #FFFFFF;
   border-radius: 14px;
   padding: 2.2rem;
   border: 1px solid var(--gray-light);
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -1px rgba(0,0,0,0.01);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
@@ -603,7 +607,7 @@ section {
 
 /* USE CASES */
 .use-cases {
-  background: var(--off-white);
+  background: transparent;
 }
 
 .cases-tabs {
@@ -619,7 +623,7 @@ section {
   padding: 0.6rem 1.4rem;
   border-radius: 8px;
   border: 1px solid var(--gray-light);
-  background: var(--white);
+  background: #FFFFFF;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -651,11 +655,11 @@ section {
 }
 
 .case-box {
-  background: var(--white);
+  background: #FFFFFF;
   border-radius: 14px;
   padding: 2.2rem;
   border: 1px solid var(--gray-light);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.015);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .case-box h4 {
@@ -754,7 +758,7 @@ section {
 
 /* PRICING */
 .pricing {
-  background: var(--off-white);
+  background: transparent;
 }
 
 .pricing-grid {
@@ -765,7 +769,7 @@ section {
 }
 
 .plan-card {
-  background: var(--white);
+  background: #FFFFFF;
   border-radius: 16px;
   padding: 2.5rem 2rem;
   border: 1px solid var(--gray-light);
