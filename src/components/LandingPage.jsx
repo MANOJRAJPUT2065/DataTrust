@@ -14,9 +14,9 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
           entry.target.classList.add('visible');
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.15 });
 
-    document.querySelectorAll('.flow-animate').forEach(el => observer.observe(el));
+    document.querySelectorAll('.flow-animate, .scroll-reveal').forEach(el => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
@@ -44,13 +44,13 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
 
       {/* HERO */}
       <section className="hero">
-        <div className="hero-badge">
+        <div className="hero-badge scroll-reveal fade-up">
           <span className="dot-pulse"></span>
           Enterprise Data Governance Platform
         </div>
-        <h1>Stop debating numbers.<br />Start <span>trusting</span> them.</h1>
-        <p>DataTrust connects Snowflake directly to Excel with live, validated data and proactive quality alerts—so every decision is backed by numbers everyone agrees on.</p>
-        <div className="hero-actions">
+        <h1 className="scroll-reveal fade-up delay-100">Stop debating numbers.<br />Start <span>trusting</span> them.</h1>
+        <p className="scroll-reveal fade-up delay-200">DataTrust connects Snowflake directly to Excel with live, validated data and proactive quality alerts—so every decision is backed by numbers everyone agrees on.</p>
+        <div className="hero-actions scroll-reveal fade-up delay-300">
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <button onClick={onEnterWorkspace} className="btn-primary" style={{ alignSelf: 'flex-start' }}>
               Launch Limited UI Demo <ArrowRight size={18} />
@@ -63,7 +63,7 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
             See Before & After Cases
           </a>
         </div>
-        <div className="hero-stats">
+        <div className="hero-stats scroll-reveal fade-up delay-400">
           <div className="stat-item">
             <div className="stat-num">₹15 Cr</div>
             <div className="stat-label">avg. annual savings per enterprise</div>
@@ -84,11 +84,11 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
       </section>
 
       {/* INTEGRATIONS STRIP — Right after Hero */}
-      <div style={{ backgroundColor: 'var(--navy-mid)', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '20px 5%' }}>
+      <div className="scroll-reveal fade-up" style={{ backgroundColor: 'var(--navy-mid)', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '20px 5%' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap', justifyContent: 'center' }}>
           <span style={{ color: 'var(--gray)', fontSize: '13px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.08em', whiteSpace: 'nowrap' }}>🔗 Works with your stack:</span>
-          {['Snowflake', 'Databricks', 'Microsoft Fabric', 'Power BI', 'Tableau', 'Qlik', 'Excel'].map(tool => (
-            <span key={tool} style={{ fontSize: '13px', fontWeight: '600', color: 'var(--white)', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '999px' }}>{tool}</span>
+          {['Snowflake', 'Databricks', 'Microsoft Fabric', 'Power BI', 'Tableau', 'Qlik', 'Excel'].map((tool, idx) => (
+            <span key={tool} className={`scroll-reveal scale-in delay-${(idx + 1) * 100}`} style={{ fontSize: '13px', fontWeight: '600', color: 'var(--white)', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '999px' }}>{tool}</span>
           ))}
         </div>
       </div>
@@ -142,6 +142,51 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
           .flow-delay-1 { transition-delay: 0.1s; color: #EF4444; }
           .flow-delay-2 { transition-delay: 0.3s; color: #10B981; }
           .flow-delay-3 { transition-delay: 0.5s; color: #3B82F6; }
+
+          /* General Scroll Reveal Animations */
+          .scroll-reveal {
+            opacity: 0;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+          }
+          .scroll-reveal.fade-up {
+            transform: translateY(30px);
+          }
+          .scroll-reveal.fade-down {
+            transform: translateY(-30px);
+          }
+          .scroll-reveal.fade-left {
+            transform: translateX(30px);
+          }
+          .scroll-reveal.fade-right {
+            transform: translateX(-30px);
+          }
+          .scroll-reveal.scale-in {
+            transform: scale(0.95);
+          }
+          .scroll-reveal.visible {
+            opacity: 1;
+            transform: translate(0) scale(1);
+          }
+          
+          /* Staggered Delays */
+          .delay-100 { transition-delay: 0.1s; }
+          .delay-200 { transition-delay: 0.2s; }
+          .delay-300 { transition-delay: 0.3s; }
+          .delay-400 { transition-delay: 0.4s; }
+          .delay-500 { transition-delay: 0.5s; }
+          .delay-600 { transition-delay: 0.6s; }
+          .delay-700 { transition-delay: 0.7s; }
+          .delay-800 { transition-delay: 0.8s; }
+
+          /* Case content fade-in when switching tabs */
+          .case-content.active {
+            animation: caseFadeIn 0.4s ease forwards;
+          }
+          @keyframes caseFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
         `}</style>
 
         <div className="section-label" style={{ textAlign: 'center', marginBottom: '40px' }}>Overview</div>
@@ -173,35 +218,35 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
 
       {/* PROBLEMS */}
       <section className="problems" id="problems">
-        <div className="section-label">The Root Cause</div>
-        <h2 className="section-title">5 problems costing you ₹15 Cr a year</h2>
-        <p className="section-subtitle">Every enterprise with Snowflake and Excel faces the same challenges. DataTrust solves all of them together.</p>
+        <div className="section-label scroll-reveal fade-up">The Root Cause</div>
+        <h2 className="section-title scroll-reveal fade-up delay-100">5 problems costing you ₹15 Cr a year</h2>
+        <p className="section-subtitle scroll-reveal fade-up delay-200">Every enterprise with Snowflake and Excel faces the same challenges. DataTrust solves all of them together.</p>
         <div className="problems-grid">
-          <div className="problem-card">
+          <div className="problem-card scroll-reveal fade-up delay-300">
             <div className="problem-icon" style={{ background: 'rgba(239,68,68,0.1)' }}>📊</div>
             <h3>Semantic Chaos</h3>
             <p>Marketing, Finance, and Sales each define "Revenue" differently. Board meetings become definition debates, not strategy discussions.</p>
             <div className="problem-cost">₹1.5 Cr / year</div>
           </div>
-          <div className="problem-card">
+          <div className="problem-card scroll-reveal fade-up delay-400">
             <div className="problem-icon" style={{ background: 'rgba(245,158,11,0.1)' }}>📁</div>
             <h3>Excel Export Hell</h3>
             <p>Every Monday: export from Power BI → open Excel → copy-paste → fix formulas → find errors. 20 analysts × 2 hours = 40 hours wasted weekly.</p>
             <div className="problem-cost">₹2 Cr / year</div>
           </div>
-          <div className="problem-card">
+          <div className="problem-card scroll-reveal fade-up delay-500">
             <div className="problem-icon" style={{ background: 'rgba(99,102,241,0.1)' }}>❓</div>
             <h3>Trust Deficit</h3>
             <p>CFO gets two different Revenue figures on two different days. Investigation takes 3 days. Confidence in data disappears.</p>
             <div className="problem-cost">₹5 Cr / year</div>
           </div>
-          <div className="problem-card">
+          <div className="problem-card scroll-reveal fade-up delay-600">
             <div className="problem-icon" style={{ background: 'rgba(239,68,68,0.1)' }}>🔥</div>
             <h3>Reactive Quality</h3>
             <p>Issue happens → someone notices 4 hours later → investigation → fix → republish. 21 hours of delay on average. Wrong decisions made.</p>
             <div className="problem-cost">₹3 Cr / year</div>
           </div>
-          <div className="problem-card">
+          <div className="problem-card scroll-reveal fade-up delay-700">
             <div className="problem-icon" style={{ background: 'rgba(0,191,165,0.1)' }}>📋</div>
             <h3>Audit Nightmare</h3>
             <p>"Who changed the Revenue definition?" Search emails, Slack, Jira, interview the team. 7 hours per audit question.</p>
@@ -212,33 +257,33 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
 
       {/* HOW IT WORKS */}
       <section id="how">
-        <div className="section-label">How It Works</div>
-        <h2 className="section-title">Governed data in Excel. In seconds.</h2>
-        <p className="section-subtitle">One platform that bridges the gap between your data warehouse and your Excel users—with quality checks baked in.</p>
+        <div className="section-label scroll-reveal fade-up">How It Works</div>
+        <h2 className="section-title scroll-reveal fade-up delay-100">Governed data in Excel. In seconds.</h2>
+        <p className="section-subtitle scroll-reveal fade-up delay-200">One platform that bridges the gap between your data warehouse and your Excel users—with quality checks baked in.</p>
         <div className="how-grid">
           <div className="how-steps">
-            <div className="step">
+            <div className="step scroll-reveal fade-right delay-300">
               <div className="step-num">1</div>
               <div className="step-content">
                 <h4>Connect your data warehouse</h4>
                 <p>Link Snowflake, Databricks, or any supported warehouse. Define your metrics once in the Semantic Layer.</p>
               </div>
             </div>
-            <div className="step">
+            <div className="step scroll-reveal fade-right delay-400">
               <div className="step-num">2</div>
               <div className="step-content">
                 <h4>Set business rules & alerts</h4>
                 <p>Configure quality rules in plain English. DataTrust auto-infers patterns from your data history too.</p>
               </div>
             </div>
-            <div className="step">
+            <div className="step scroll-reveal fade-right delay-500">
               <div className="step-num">3</div>
               <div className="step-content">
                 <h4>Click Refresh in Excel</h4>
                 <p>Live, validated data streams directly into your spreadsheet. No export, no copy-paste, no broken formulas.</p>
               </div>
             </div>
-            <div className="step">
+            <div className="step scroll-reveal fade-right delay-600">
               <div className="step-num">4</div>
               <div className="step-content">
                 <h4>Get alerts before anyone complains</h4>
@@ -246,9 +291,9 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
               </div>
             </div>
           </div>
-
+ 
           {/* MOCK EXCEL UI */}
-          <div className="mock-excel">
+          <div className="mock-excel scroll-reveal scale-in delay-300">
             <div className="mock-topbar">
               <div className="mock-dots">
                 <div className="mock-dot" style={{ background: '#FF5F57' }}></div>
@@ -314,36 +359,36 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
 
       {/* FEATURES */}
       <section className="features" id="features">
-        <div className="section-label">Core Features</div>
-        <h2 className="section-title">Everything you need for trusted data</h2>
-        <p className="section-subtitle">Four engines working together to make sure every number in every Excel report is accurate and traceable.</p>
+        <div className="section-label scroll-reveal fade-up">Core Features</div>
+        <h2 className="section-title scroll-reveal fade-up delay-100">Everything you need for trusted data</h2>
+        <p className="section-subtitle scroll-reveal fade-up delay-200">Four engines working together to make sure every number in every Excel report is accurate and traceable.</p>
         <div className="features-grid">
-          <div className="feature-card">
+          <div className="feature-card scroll-reveal fade-up delay-300">
             <div className="feature-icon">🧩</div>
             <h3>Semantic Layer</h3>
             <p>One definition for every metric. Revenue is Revenue, for Finance, Sales, and the CFO—always the same number, everywhere.</p>
           </div>
-          <div className="feature-card">
+          <div className="feature-card scroll-reveal fade-up delay-400">
             <div className="feature-icon">⚡</div>
             <h3>Live Excel Connector</h3>
             <p>One-click data refresh pulls directly from Snowflake into Excel. Auto-corrects broken formulas. Saves 2 hours per analyst per week.</p>
           </div>
-          <div className="feature-card">
+          <div className="feature-card scroll-reveal fade-up delay-500">
             <div className="feature-icon">🤖</div>
             <h3>AI Quality Engine</h3>
             <p>Learns your data patterns, detects anomalies in under 5 minutes, and alerts you in plain business language—before anyone complains.</p>
           </div>
-          <div className="feature-card">
+          <div className="feature-card scroll-reveal fade-up delay-600">
             <div className="feature-icon">📜</div>
             <h3>Full Audit Trail</h3>
             <p>Every data change, formula correction, and metric update is logged. Audit questions answered in 1 second, not 7 days.</p>
           </div>
-          <div className="feature-card">
+          <div className="feature-card scroll-reveal fade-up delay-700">
             <div className="feature-icon">🔔</div>
             <h3>Business Alerts</h3>
             <p>No more cryptic technical errors. Alerts say "Revenue dropped 40%—check duplicate entries in Store 42" not "NULL constraint violation."</p>
           </div>
-          <div className="feature-card">
+          <div className="feature-card scroll-reveal fade-up delay-800">
             <div className="feature-icon">🔐</div>
             <h3>Enterprise Security</h3>
             <p>SOC2, GDPR, SOX, HIPAA compliant. SSO, role-based access control, end-to-end encryption. Ready for your security team's questions.</p>
@@ -353,11 +398,11 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
 
       {/* USE CASES */}
       <section className="use-cases" id="usecases">
-        <div className="section-label">Real Impact</div>
-        <h2 className="section-title">Before & After DataTrust</h2>
-        <p className="section-subtitle">Real workflows from real teams—and how DataTrust transforms them.</p>
+        <div className="section-label scroll-reveal fade-up">Real Impact</div>
+        <h2 className="section-title scroll-reveal fade-up delay-100">Before & After DataTrust</h2>
+        <p className="section-subtitle scroll-reveal fade-up delay-200">Real workflows from real teams—and how DataTrust transforms them.</p>
 
-        <div className="cases-tabs">
+        <div className="cases-tabs scroll-reveal scale-in delay-300">
           {['reporting', 'quality', 'audit', 'budget'].map(tab => (
             <button
               key={tab}
@@ -474,10 +519,10 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
 
       {/* ROI CALCULATOR */}
       <section className="roi" id="roi">
-        <div className="section-label">Business Case</div>
-        <h2 className="section-title">The numbers behind the numbers</h2>
-        <p className="section-subtitle">For a typical 500-person enterprise, DataTrust delivers ₹15.7 Cr in annual savings across five categories.</p>
-        <div className="roi-table-container">
+        <div className="section-label scroll-reveal fade-up">Business Case</div>
+        <h2 className="section-title scroll-reveal fade-up delay-100">The numbers behind the numbers</h2>
+        <p className="section-subtitle scroll-reveal fade-up delay-200">For a typical 500-person enterprise, DataTrust delivers ₹15.7 Cr in annual savings across five categories.</p>
+        <div className="roi-table-container scroll-reveal scale-in delay-300">
           <table className="roi-table">
             <thead>
               <tr>
@@ -524,11 +569,11 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
 
       {/* PRICING */}
       <section className="pricing" id="pricing">
-        <div className="section-label">Pricing</div>
-        <h2 className="section-title">Transparent plans. Measurable ROI.</h2>
-        <p className="section-subtitle">Every plan comes with a 30-day pilot. See the value before you commit.</p>
+        <div className="section-label scroll-reveal fade-up">Pricing</div>
+        <h2 className="section-title scroll-reveal fade-up delay-100">Transparent plans. Measurable ROI.</h2>
+        <p className="section-subtitle scroll-reveal fade-up delay-200">Every plan comes with a 30-day pilot. See the value before you commit.</p>
         <div className="pricing-grid">
-          <div className="plan-card">
+          <div className="plan-card scroll-reveal fade-up delay-300">
             <div className="plan-name">Starter</div>
             <div className="plan-price">₹15L</div>
             <div className="plan-users">Up to 10 users · Annual</div>
@@ -541,7 +586,7 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
             </ul>
             <div className="plan-roi">ROI: up to 5x</div>
           </div>
-          <div className="plan-card">
+          <div className="plan-card scroll-reveal fade-up delay-400">
             <div className="plan-name">Professional</div>
             <div className="plan-price">₹30L</div>
             <div className="plan-users">Up to 25 users · Annual</div>
@@ -554,12 +599,12 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
             </ul>
             <div className="plan-roi">ROI: up to 10x</div>
           </div>
-          <div className="plan-card popular">
+          <div className="plan-card popular scroll-reveal fade-up delay-500">
             <div className="popular-badge">Most Popular</div>
             <div className="plan-name">Enterprise</div>
             <div className="plan-price">₹50L</div>
             <div className="plan-users">Up to 50 users · Annual</div>
-            <ul class="plan-features">
+            <ul className="plan-features">
               <li>Full Platform</li>
               <li>Rule Inference Engine</li>
               <li>Data Lineage</li>
@@ -568,7 +613,7 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
             </ul>
             <div className="plan-roi">ROI: up to 20x</div>
           </div>
-          <div className="plan-card">
+          <div className="plan-card scroll-reveal fade-up delay-600">
             <div className="plan-name">Platinum</div>
             <div className="plan-price">₹75L</div>
             <div className="plan-users">100+ users · Annual</div>
@@ -587,114 +632,113 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
       {/* MEET THE TEAM */}
       <section style={{ padding: '100px 5%', backgroundColor: 'var(--navy)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
-          <div className="section-label" style={{ marginBottom: '1rem' }}>The People Behind DataTrust</div>
-          <h2 className="section-title" style={{ color: '#fff', margin: '0 auto 1rem', maxWidth: '600px' }}>Built by someone who lived the problem</h2>
-          <p className="section-subtitle" style={{ color: 'var(--gray)', margin: '0 auto 3.5rem', maxWidth: '580px' }}>
+          <div className="section-label scroll-reveal fade-up" style={{ marginBottom: '1rem' }}>The People Behind DataTrust</div>
+          <h2 className="section-title scroll-reveal fade-up delay-100" style={{ color: '#fff', margin: '0 auto 1rem', maxWidth: '600px' }}>Built by someone who lived the problem</h2>
+          <p className="section-subtitle scroll-reveal fade-up delay-200" style={{ color: 'var(--gray)', margin: '0 auto 3.5rem', maxWidth: '580px' }}>
             Not a random SaaS idea — DataTrust was born from real enterprise pain.
           </p>
-
+ 
           {/* Team Cards */}
           <div style={{ display: 'flex', justifyContent: 'center', gap: '32px', flexWrap: 'wrap' }}>
-            <div style={{
-              background: 'var(--navy-mid)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: '20px',
-              padding: '40px',
-              maxWidth: '360px',
-              width: '100%',
-              textAlign: 'center',
-              transition: 'transform 0.3s, box-shadow 0.3s',
-              boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-            }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 20px 50px rgba(0,0,0,0.4)'; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 10px 40px rgba(0,0,0,0.3)'; }}
-            >
-              {/* Avatar */}
-              <div style={{ position: 'relative', display: 'inline-block', marginBottom: '24px' }}>
-                <img
-                  src="https://media.licdn.com/dms/image/v2/D5603AQFhJDtaHrHn2A/profile-displayphoto-scale_400_400/B56Z5vZEShIoAk-/0/1779985304253?e=1783555200&v=beta&t=F0gCCbUwZ7j1vERCtOraIUSxZoox3OGDeyOn2pDbP04"
-                  alt="Manoj Rajput"
-                  style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--teal)', boxShadow: '0 0 0 6px rgba(0,191,165,0.12)' }}
-                />
-                <div style={{ position: 'absolute', bottom: '4px', right: '4px', background: 'var(--teal)', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', border: '2px solid var(--navy-mid)' }}>✓</div>
-              </div>
-
-              {/* Name & Title */}
-              <h3 style={{ fontSize: '22px', fontWeight: '700', color: '#fff', marginBottom: '4px' }}>Manoj Singh Rajput</h3>
-              <p style={{ color: 'var(--teal)', fontWeight: '600', fontSize: '14px', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Founder & Creator</p>
-
-              {/* Bio */}
-              <p style={{ color: 'var(--gray)', fontSize: '14px', lineHeight: '1.7', marginBottom: '24px' }}>
-                "I watched finance teams spend entire Mondays manually exporting data and reconciling numbers that still didn't match. DataTrust is the platform I wished existed."
-              </p>
-
-              {/* Badges */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center', marginBottom: '28px' }}>
-                {['Data Engineering', 'Enterprise SaaS', 'AI/ML', 'Governance'].map(tag => (
-                  <span key={tag} style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '999px', background: 'rgba(0,191,165,0.1)', color: 'var(--teal)', border: '1px solid rgba(0,191,165,0.2)', fontWeight: '600' }}>{tag}</span>
-                ))}
-              </div>
-
-              {/* LinkedIn Button */}
-              <a
-                href="https://www.linkedin.com/in/manojrajput2065/"
-                target="_blank"
-                rel="noreferrer"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#0A66C2', color: '#ffffff', padding: '11px 26px', borderRadius: '30px', textDecoration: 'none', fontWeight: '600', fontSize: '14px', boxShadow: '0 4px 12px rgba(10,102,194,0.35)', transition: 'opacity 0.2s' }}
-                onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
-                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+            <div className="scroll-reveal fade-up delay-300" style={{ maxWidth: '360px', width: '100%' }}>
+              <div style={{
+                background: 'var(--navy-mid)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: '20px',
+                padding: '40px',
+                textAlign: 'center',
+                transition: 'transform 0.3s, box-shadow 0.3s',
+                boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 20px 50px rgba(0,0,0,0.4)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 10px 40px rgba(0,0,0,0.3)'; }}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg>
-                Connect on LinkedIn
-              </a>
+                {/* Avatar */}
+                <div style={{ position: 'relative', display: 'inline-block', marginBottom: '24px' }}>
+                  <img
+                    src="https://media.licdn.com/dms/image/v2/D5603AQFhJDtaHrHn2A/profile-displayphoto-scale_400_400/B56Z5vZEShIoAk-/0/1779985304253?e=1783555200&v=beta&t=F0gCCbUwZ7j1vERCtOraIUSxZoox3OGDeyOn2pDbP04"
+                    alt="Manoj Rajput"
+                    style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--teal)', boxShadow: '0 0 0 6px rgba(0,191,165,0.12)' }}
+                  />
+                  <div style={{ position: 'absolute', bottom: '4px', right: '4px', background: 'var(--teal)', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', border: '2px solid var(--navy-mid)' }}>✓</div>
+                </div>
+ 
+                {/* Name & Title */}
+                <h3 style={{ fontSize: '22px', fontWeight: '700', color: '#fff', marginBottom: '4px' }}>Manoj Singh Rajput</h3>
+                <p style={{ color: 'var(--teal)', fontWeight: '600', fontSize: '14px', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Founder & Creator</p>
+ 
+                {/* Bio */}
+                <p style={{ color: 'var(--gray)', fontSize: '14px', lineHeight: '1.7', marginBottom: '24px' }}>
+                  "I watched finance teams spend entire Mondays manually exporting data and reconciling numbers that still didn't match. DataTrust is the platform I wished existed."
+                </p>
+ 
+                {/* Badges */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center', marginBottom: '28px' }}>
+                  {['Data Engineering', 'Enterprise SaaS', 'AI/ML', 'Governance'].map(tag => (
+                    <span key={tag} style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '999px', background: 'rgba(0,191,165,0.1)', color: 'var(--teal)', border: '1px solid rgba(0,191,165,0.2)', fontWeight: '600' }}>{tag}</span>
+                  ))}
+                </div>
+ 
+                {/* LinkedIn Button */}
+                <a
+                  href="https://www.linkedin.com/in/manojrajput2065/"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#0A66C2', color: '#ffffff', padding: '11px 26px', borderRadius: '30px', textDecoration: 'none', fontWeight: '600', fontSize: '14px', boxShadow: '0 4px 12px rgba(10,102,194,0.35)', transition: 'opacity 0.2s' }}
+                  onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+                  onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg>
+                  Connect on LinkedIn
+                </a>
+              </div>
             </div>
-
+ 
             {/* Card 2 - Sushil */}
-            <div style={{
-              background: 'var(--navy-mid)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: '20px',
-              padding: '40px',
-              maxWidth: '360px',
-              width: '100%',
-              textAlign: 'center',
-              transition: 'transform 0.3s, box-shadow 0.3s',
-              boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-            }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 20px 50px rgba(0,0,0,0.4)'; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 10px 40px rgba(0,0,0,0.3)'; }}
-            >
-              <div style={{ position: 'relative', display: 'inline-block', marginBottom: '24px' }}>
-                <img
-                  src="https://media.licdn.com/dms/image/v2/D5603AQFm-xoz0HDvkQ/profile-displayphoto-crop_800_800/B56ZypFfKyIIAI-/0/1772363315544?e=1783555200&v=beta&t=48nCotodmY4GQZ-0Bt0edbSjDoqmBt0RXLGjLjjInoo"
-                  alt="Sushil Lalhal"
-                  style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--blue-light)', boxShadow: '0 0 0 6px rgba(30,136,229,0.12)' }}
-                />
-                <div style={{ position: 'absolute', bottom: '4px', right: '4px', background: 'var(--blue-light)', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', border: '2px solid var(--navy-mid)' }}>&#10003;</div>
-              </div>
-              <h3 style={{ fontSize: '22px', fontWeight: '700', color: '#fff', marginBottom: '4px' }}>Sushil Lalhal</h3>
-              <p style={{ color: 'var(--blue-light)', fontWeight: '600', fontSize: '14px', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Co-Founder</p>
-              <p style={{ color: 'var(--gray)', fontSize: '14px', lineHeight: '1.7', marginBottom: '24px' }}>
-                "Bringing the technical backbone to DataTrust — ensuring our platform's architecture is not just scalable, but enterprise-grade from day one."
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center', marginBottom: '28px' }}>
-                {['Backend Systems', 'Cloud Architecture', 'Data Pipelines', 'Security'].map(tag => (
-                  <span key={tag} style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '999px', background: 'rgba(30,136,229,0.1)', color: 'var(--blue-light)', border: '1px solid rgba(30,136,229,0.2)', fontWeight: '600' }}>{tag}</span>
-                ))}
-              </div>
-              <a
-                href="https://www.linkedin.com/in/sushil-lalhal-24396b300/"
-                target="_blank"
-                rel="noreferrer"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#0A66C2', color: '#ffffff', padding: '11px 26px', borderRadius: '30px', textDecoration: 'none', fontWeight: '600', fontSize: '14px', boxShadow: '0 4px 12px rgba(10,102,194,0.35)', transition: 'opacity 0.2s' }}
-                onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
-                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+            <div className="scroll-reveal fade-up delay-400" style={{ maxWidth: '360px', width: '100%' }}>
+              <div style={{
+                background: 'var(--navy-mid)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: '20px',
+                padding: '40px',
+                textAlign: 'center',
+                transition: 'transform 0.3s, box-shadow 0.3s',
+                boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 20px 50px rgba(0,0,0,0.4)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 10px 40px rgba(0,0,0,0.3)'; }}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg>
-                Connect on LinkedIn
-              </a>
+                <div style={{ position: 'relative', display: 'inline-block', marginBottom: '24px' }}>
+                  <img
+                    src="https://media.licdn.com/dms/image/v2/D5603AQFm-xoz0HDvkQ/profile-displayphoto-crop_800_800/B56ZypFfKyIIAI-/0/1772363315544?e=1783555200&v=beta&t=48nCotodmY4GQZ-0Bt0edbSjDoqmBt0RXLGjLjjInoo"
+                    alt="Sushil Lalhal"
+                    style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--blue-light)', boxShadow: '0 0 0 6px rgba(30,136,229,0.12)' }}
+                  />
+                  <div style={{ position: 'absolute', bottom: '4px', right: '4px', background: 'var(--blue-light)', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', border: '2px solid var(--navy-mid)' }}>&#10003;</div>
+                </div>
+                <h3 style={{ fontSize: '22px', fontWeight: '700', color: '#fff', marginBottom: '4px' }}>Sushil Lalhal</h3>
+                <p style={{ color: 'var(--blue-light)', fontWeight: '600', fontSize: '14px', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Co-Founder</p>
+                <p style={{ color: 'var(--gray)', fontSize: '14px', lineHeight: '1.7', marginBottom: '24px' }}>
+                  "Bringing the technical backbone to DataTrust — ensuring our platform's architecture is not just scalable, but enterprise-grade from day one."
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center', marginBottom: '28px' }}>
+                  {['Backend Systems', 'Cloud Architecture', 'Data Pipelines', 'Security'].map(tag => (
+                    <span key={tag} style={{ fontSize: '12px', padding: '4px 12px', borderRadius: '999px', background: 'rgba(30,136,229,0.1)', color: 'var(--blue-light)', border: '1px solid rgba(30,136,229,0.2)', fontWeight: '600' }}>{tag}</span>
+                  ))}
+                </div>
+                <a
+                  href="https://www.linkedin.com/in/sushil-lalhal-24396b300/"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#0A66C2', color: '#ffffff', padding: '11px 26px', borderRadius: '30px', textDecoration: 'none', fontWeight: '600', fontSize: '14px', boxShadow: '0 4px 12px rgba(10,102,194,0.35)', transition: 'opacity 0.2s' }}
+                  onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+                  onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg>
+                  Connect on LinkedIn
+                </a>
+              </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -702,16 +746,16 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
       {/* TESTIMONIALS — After Team */}
       <section style={{ padding: '100px 5%', backgroundColor: 'transparent' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
-          <div className="section-label" style={{ marginBottom: '1rem' }}>Social Proof</div>
-          <h2 className="section-title" style={{ margin: '0 auto 1rem', maxWidth: '600px' }}>What decision-makers say</h2>
-          <p className="section-subtitle" style={{ margin: '0 auto 3.5rem' }}>Early feedback from enterprise stakeholders who tested DataTrust.</p>
+          <div className="section-label scroll-reveal fade-up" style={{ marginBottom: '1rem' }}>Social Proof</div>
+          <h2 className="section-title scroll-reveal fade-up delay-100" style={{ margin: '0 auto 1rem', maxWidth: '600px' }}>What decision-makers say</h2>
+          <p className="section-subtitle scroll-reveal fade-up delay-200" style={{ margin: '0 auto 3.5rem' }}>Early feedback from enterprise stakeholders who tested DataTrust.</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
             {[
               { quote: '"DataTrust ne hamara monthly reporting time 8 hours se 10 minutes kar diya. Board meetings ab numbers pe nahi, strategy pe hoti hain."', author: 'CFO', company: 'Leading Indian Retail Chain' },
               { quote: '"Audit questions jo pehle 7 din lagte the, ab 1 second mein answer ho jaate hain. Compliance team ka confidence is platform se aayi hai."', author: 'Head of Compliance', company: 'Enterprise Finance Firm' },
               { quote: '"Revenue figures ab sabke liye same hain — Finance, Sales, Marketing. Semantic drift khatam. Trust wapas aaya."', author: 'VP of Data', company: 'Multi-BU Conglomerate' },
             ].map((t, i) => (
-              <div key={i} style={{ background: '#FFFFFF', borderRadius: '16px', padding: '32px', border: '1px solid var(--gray-light)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', textAlign: 'left' }}>
+              <div key={i} className={`scroll-reveal fade-up delay-${(i + 3) * 100}`} style={{ background: '#FFFFFF', borderRadius: '16px', padding: '32px', border: '1px solid var(--gray-light)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', textAlign: 'left' }}>
                 <div style={{ fontSize: '28px', color: 'var(--teal)', lineHeight: 1, marginBottom: '16px' }}>&ldquo;</div>
                 <p style={{ color: 'var(--text)', fontSize: '15px', lineHeight: '1.75', marginBottom: '20px', fontStyle: 'italic' }}>{t.quote}</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', borderTop: '1px solid var(--gray-light)', paddingTop: '16px' }}>
@@ -730,9 +774,9 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
       {/* FAQ SECTION */}
       <section style={{ padding: '100px 5%', backgroundColor: '#FFFFFF' }} id="faq">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <div className="section-label" style={{ marginBottom: '1rem', textAlign: 'center', display: 'block' }}>FAQ</div>
-          <h2 className="section-title" style={{ textAlign: 'center', margin: '0 auto 1rem', maxWidth: '600px' }}>Frequently Asked Questions</h2>
-          <p className="section-subtitle" style={{ textAlign: 'center', margin: '0 auto 3.5rem' }}>Everything you need to know before getting started.</p>
+          <div className="section-label scroll-reveal fade-up" style={{ marginBottom: '1rem', textAlign: 'center', display: 'block' }}>FAQ</div>
+          <h2 className="section-title scroll-reveal fade-up delay-100" style={{ textAlign: 'center', margin: '0 auto 1rem', maxWidth: '600px' }}>Frequently Asked Questions</h2>
+          <p className="section-subtitle scroll-reveal fade-up delay-200" style={{ textAlign: 'center', margin: '0 auto 3.5rem' }}>Everything you need to know before getting started.</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {[
               { q: 'Does DataTrust store my data?', a: 'No. DataTrust runs entirely within your own environment. Your data never leaves your perimeter — all processing happens locally in your infrastructure.' },
@@ -742,7 +786,7 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
               { q: 'What if my data is on-premise?', a: 'DataTrust fully supports on-premise deployment. We work with your existing infrastructure — no cloud migration required.' },
               { q: 'Does it work with Power BI and Tableau?', a: 'Yes. DataTrust integrates with Snowflake, Databricks, Microsoft Fabric, Power BI, Tableau, Qlik, and Excel out of the box.' },
             ].map((item, i) => (
-              <details key={i} style={{ background: 'var(--off-white)', borderRadius: '12px', border: '1px solid var(--gray-light)', padding: '0' }}>
+              <details key={i} className={`scroll-reveal fade-up delay-${(i + 1) * 100}`} style={{ background: 'var(--off-white)', borderRadius: '12px', border: '1px solid var(--gray-light)', padding: '0' }}>
                 <summary style={{ padding: '20px 24px', fontWeight: '600', fontSize: '16px', color: 'var(--text)', cursor: 'pointer', listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   {item.q} <span style={{ fontSize: '20px', color: 'var(--teal)', marginLeft: '12px', flexShrink: 0 }}>+</span>
                 </summary>
@@ -754,11 +798,11 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
       </section>
 
       {/* SECURITY BADGES */}
-      <div style={{ backgroundColor: 'var(--navy)', padding: '28px 5%', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <div className="scroll-reveal fade-up" style={{ backgroundColor: 'var(--navy)', padding: '28px 5%', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
-          <span style={{ color: 'var(--gray)', fontSize: '13px', fontWeight: '600', marginRight: '8px' }}>Enterprise Security:</span>
-          {[{ icon: '🔐', label: 'SOC2 Compliant' }, { icon: '🇪🇺', label: 'GDPR Ready' }, { icon: '🏥', label: 'HIPAA Compliant' }, { icon: '📋', label: 'SOX Ready' }, { icon: '🔒', label: 'End-to-End Encryption' }].map(b => (
-            <span key={b.label} style={{ fontSize: '13px', fontWeight: '600', color: 'var(--white)', background: 'rgba(0,191,165,0.1)', border: '1px solid rgba(0,191,165,0.2)', padding: '7px 16px', borderRadius: '999px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+          <span className="scroll-reveal fade-up delay-100" style={{ color: 'var(--gray)', fontSize: '13px', fontWeight: '600', marginRight: '8px' }}>Enterprise Security:</span>
+          {[{ icon: '🔐', label: 'SOC2 Compliant' }, { icon: '🇪🇺', label: 'GDPR Ready' }, { icon: '🏥', label: 'HIPAA Compliant' }, { icon: '📋', label: 'SOX Ready' }, { icon: '🔒', label: 'End-to-End Encryption' }].map((b, idx) => (
+            <span key={b.label} className={`scroll-reveal scale-in delay-${(idx + 2) * 100}`} style={{ fontSize: '13px', fontWeight: '600', color: 'var(--white)', background: 'rgba(0,191,165,0.1)', border: '1px solid rgba(0,191,165,0.2)', padding: '7px 16px', borderRadius: '999px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
               {b.icon} {b.label}
             </span>
           ))}
@@ -767,9 +811,9 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
 
       {/* CTA SECTION */}
       <section className="cta-section" id="contact">
-        <h2>Ready to trust your numbers?</h2>
-        <p>Launch the interactive web simulator now to test connections, build rules, and inspect downstream schema impacts.</p>
-        <div className="cta-buttons" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+        <h2 className="scroll-reveal fade-up">Ready to trust your numbers?</h2>
+        <p className="scroll-reveal fade-up delay-100">Launch the interactive web simulator now to test connections, build rules, and inspect downstream schema impacts.</p>
+        <div className="cta-buttons scroll-reveal fade-up delay-200" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
           <div style={{ display: 'flex', gap: '20px' }}>
             <button onClick={onEnterWorkspace} className="btn-primary">
               Launch Limited UI Demo
@@ -787,11 +831,12 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
       {/* NEWSLETTER */}
       <section style={{ padding: '80px 5%', backgroundColor: '#FFFFFF' }}>
         <div style={{ maxWidth: '560px', margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ fontSize: '32px', marginBottom: '16px' }}>🔔</div>
-          <h3 style={{ fontSize: '28px', fontWeight: '700', color: 'var(--text)', marginBottom: '12px', fontFamily: 'var(--font-display)' }}>Stay in the loop</h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: '16px', marginBottom: '32px', lineHeight: '1.7' }}>Get product updates, case studies, and early access announcements. No spam. Unsubscribe anytime.</p>
+          <div className="scroll-reveal fade-up" style={{ fontSize: '32px', marginBottom: '16px' }}>🔔</div>
+          <h3 className="scroll-reveal fade-up delay-100" style={{ fontSize: '28px', fontWeight: '700', color: 'var(--text)', marginBottom: '12px', fontFamily: 'var(--font-display)' }}>Stay in the loop</h3>
+          <p className="scroll-reveal fade-up delay-200" style={{ color: 'var(--text-muted)', fontSize: '16px', marginBottom: '32px', lineHeight: '1.7' }}>Get product updates, case studies, and early access announcements. No spam. Unsubscribe anytime.</p>
           <form
             onSubmit={e => { e.preventDefault(); alert('Thanks! We will be in touch at datatrust.ai@zohomail.in'); }}
+            className="scroll-reveal fade-up delay-300"
             style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}
           >
             <input
@@ -812,7 +857,7 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
           <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '16px' }}>📧 Responses go to datatrust.ai@zohomail.in</p>
         </div>
       </section>
-
+ 
       {/* FOOTER */}
       <Footer setView={setView} />
     </div>
