@@ -1,12 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LandingPage from './components/LandingPage';
+import Version3 from './components/Version3';
 import Workspace from './components/Workspace';
 import PrivacyPolicy from './components/LegalPrivacy';
 import TermsOfService from './components/LegalTerms';
+import HowItWorks from './components/HowItWorks';
+import UserJourney from './components/UserJourney';
+import ArchitectureHLD from './components/ArchitectureHLD';
 
 export default function App() {
-  const [view, setView] = useState('landing'); // 'landing' | 'workspace'
-  const [activeTab, setActiveTab] = useState('builder'); 
+  const [view, setView] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('view') || 'landing';
+  });
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (view === 'landing') {
+      params.delete('view');
+    } else {
+      params.set('view', view);
+    }
+    const newUrl = params.toString() ? `${window.location.pathname}?${params.toString()}` : window.location.pathname;
+    window.history.replaceState({}, '', newUrl);
+  }, [view]);
+
+  
+  const [activeTab, setActiveTab] = useState('builder');
   
   // Toast Notifications State
   const [toasts, setToasts] = useState([
@@ -294,7 +314,17 @@ export default function App() {
   return (
     <div className="app-root">
       {view === 'landing' ? (
-        <LandingPage onEnterWorkspace={() => setView('workspace')} setView={setView} />
+        <LandingPage onEnterWorkspace={() => window.open(window.location.pathname + '?view=workspace', '_blank')} setView={setView} />
+      ) : view === 'v3' ? (
+        <Version3 onEnterWorkspace={() => window.open(window.location.pathname + '?view=workspace', '_blank')} setView={setView} />
+      ) : view === 'how-it-works' ? (
+        <HowItWorks />
+      ) : view === 'user-journey' ? (
+        <UserJourney />
+      ) : view === 'architecture-hld' ? (
+        <ArchitectureHLD />
+      ) : view === 'version3' ? (
+        <Version3 />
       ) : view === 'privacy' ? (
         <PrivacyPolicy setView={setView} />
       ) : view === 'terms' ? (
