@@ -125,7 +125,7 @@ const ArchitectureHLD = () => {
           }
         });
       },
-      { threshold: 0.2, rootMargin: '-10% 0px -40% 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px -10% 0px' }
     );
 
     document.querySelectorAll('.scroll-reveal').forEach((el) => {
@@ -155,6 +155,7 @@ const ArchitectureHLD = () => {
     { id: 'category-7', label: '7. Audit & Compliance' },
     { id: 'category-8', label: '8. Performance & Scale' },
     { id: 'category-9', label: '9. Ecosystem & APIs' },
+    { id: 'category-10', label: '10. Pipeline Engine' },
   ];
 
   return (
@@ -782,6 +783,135 @@ Custom Plugin → Plugin System → New Feature → Marketplace
 CI/CD Pipeline → GitHub Action → Deploy Semantic Model → Live
 SDK → API Client → DataTrust → Type-Safe Responses`}
             />
+          </section>
+
+          {/* Category 10 */}
+          <section id="category-10" className="scroll-reveal fade-up" style={{ scrollMarginTop: '100px', marginBottom: '80px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(236, 72, 153, 0.1)', border: '1px solid rgba(236, 72, 153, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px' }}>
+                ⚙️
+              </div>
+              <h2 style={{ fontSize: '32px', fontWeight: '700', letterSpacing: '-0.02em', margin: 0 }}>Category 10: Pipeline Engine</h2>
+            </div>
+            <p style={{ color: '#94A3B8', fontSize: '18px', marginBottom: '32px' }}>10-Stage Execution — Architecture & Algorithms</p>
+            <CodeBlock 
+              title="pipeline_engine_hld.txt"
+              code={`┌─────────────────────────────────────────────────────────────────────────────┐
+│                    PIPELINE EXECUTION ENGINE                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│                     [ CLIENT / EXCEL ADD-IN ]                               │
+│                                │                                            │
+│                                ▼                                            │
+│                       ( FastAPI Gateway )                                   │
+│                                │                                            │
+│   ┌────────────────────────────┴────────────────────────────┐               │
+│   ▼                                                         ▼               │
+│[ 1. CONNECT & 2. EXTRACT ]                      [ 3. PARSE DAX & 4. CLASSIFY ]
+│   │                                                         │               │
+│   ├─► Decrypts Host/Warehouse Credentials                   ├─► Tokenizes DAX Formulas
+│   ├─► Snowflake TLS Handshake Session                       └─► FACT vs DIMENSION labeling
+│   │                                                         │               │
+│   ▼                                                         ▼               │
+│[ 5. RULE CONVERT & 8. VALIDATE ]                [ 6. LLM CONVERT & 7. TRANSLATE ]
+│   │                                                         │               │
+│   ├─► Infer Constraints (Mean ± 3*Std)                      ├─► LangChain LLM Translation
+│   ├─► Row-level Rules Verification                          └─► Transpile to Snowflake SQL Dialect
+│   │                                                         │               │
+│   └────────────────────────────┬────────────────────────────┘               │
+│                                │                                            │
+│                                ▼                                            │
+│                        [ 9. GOVERNANCE ]                                    │
+│                                │                                            │
+│                                ▼                                            │
+│                         [ 10. EMISSION ]                                    │
+│                                │                                            │
+│                                ▼                                            │
+│                     [ EXCEL GRID AUTO-SYNC ]                                │
+└─────────────────────────────────────────────────────────────────────────────┘`}
+              dataFlow={`Trigger → Connect & Extract → Semantic Parse → ML Inference & LLM Translate → Validation → Governance Review → Emit Report`}
+            />
+            
+            <div style={{ marginTop: '40px', background: 'rgba(30, 41, 59, 0.5)', padding: '32px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#E2E8F0', marginBottom: '24px' }}>Stage-by-Stage Algorithms & Tech Breakdown</h3>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+                <div style={{ background: 'rgba(15, 23, 42, 0.6)', padding: '20px', borderRadius: '12px', borderLeft: '3px solid #3B82F6' }}>
+                  <h4 style={{ color: '#60A5FA', fontSize: '15px', marginBottom: '8px' }}>1-2: Connect & Extract</h4>
+                  <p style={{ color: '#94A3B8', fontSize: '13px', lineHeight: '1.6' }}><strong>AES-GCM-256 Decryption:</strong> Directly pulls connection specs from metadata DB and decrypts passwords securely.<br/><strong>Information Schema Scanning & Pagination:</strong> Dynamic LIMIT injections to control warehouse load.</p>
+                </div>
+                
+                <div style={{ background: 'rgba(15, 23, 42, 0.6)', padding: '20px', borderRadius: '12px', borderLeft: '3px solid #8B5CF6' }}>
+                  <h4 style={{ color: '#A78BFA', fontSize: '15px', marginBottom: '8px' }}>3-4: Semantic Parse & Classify</h4>
+                  <p style={{ color: '#94A3B8', fontSize: '13px', lineHeight: '1.6' }}><strong>Regex Lexer & AST Generation:</strong> Parses DAX into trees.<br/><strong>Heuristic Classification:</strong> Infers FACT vs DIMENSION using primary key ratios and entropy algorithms.</p>
+                </div>
+
+                <div style={{ background: 'rgba(15, 23, 42, 0.6)', padding: '20px', borderRadius: '12px', borderLeft: '3px solid #F59E0B' }}>
+                  <h4 style={{ color: '#FCD34D', fontSize: '15px', marginBottom: '8px' }}>5: Rule Inference Engine</h4>
+                  <p style={{ color: '#94A3B8', fontSize: '13px', lineHeight: '1.6' }}><strong>Statistical Outlier Detection:</strong> Uses Mean ± 3*Std to construct normal distribution bounds dynamically. Calculates uniqueness coefficient to assume PK constraints.</p>
+                </div>
+
+                <div style={{ background: 'rgba(15, 23, 42, 0.6)', padding: '20px', borderRadius: '12px', borderLeft: '3px solid #10B981' }}>
+                  <h4 style={{ color: '#34D399', fontSize: '15px', marginBottom: '8px' }}>6-7: LLM & Dialect Translation</h4>
+                  <p style={{ color: '#94A3B8', fontSize: '13px', lineHeight: '1.6' }}><strong>Few-Shot Translation Chain:</strong> Invokes LLMs. Uses Cosine Similarity matching for confidence grading. <strong>SQL Syntax Generator:</strong> Transpiles AST into dialect-safe SQL.</p>
+                </div>
+
+                <div style={{ background: 'rgba(15, 23, 42, 0.6)', padding: '20px', borderRadius: '12px', borderLeft: '3px solid #EF4444' }}>
+                  <h4 style={{ color: '#F87171', fontSize: '15px', marginBottom: '8px' }}>8-9: Validate & Review</h4>
+                  <p style={{ color: '#94A3B8', fontSize: '13px', lineHeight: '1.6' }}><strong>Boolean Evaluation Engine:</strong> Runs Pandas dynamic indexing for fast anomaly isolation.<br/><strong>Hierarchical Role Verification:</strong> Evaluates RBAC policies for automated sign-offs.</p>
+                </div>
+
+                <div style={{ background: 'rgba(15, 23, 42, 0.6)', padding: '20px', borderRadius: '12px', borderLeft: '3px solid #EC4899' }}>
+                  <h4 style={{ color: '#F472B6', fontSize: '15px', marginBottom: '8px' }}>10: Structured Emit</h4>
+                  <p style={{ color: '#94A3B8', fontSize: '13px', lineHeight: '1.6' }}><strong>Office XML Formatting:</strong> Manipulates memory grids via Pandas and OpenPyXL to serialize final multi-sheet reports and publish to Redis/Storage.</p>
+                </div>
+              </div>
+
+              {/* Execution Output Interfaces */}
+              <div style={{ marginTop: '40px', paddingTop: '32px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#E2E8F0', marginBottom: '24px' }}>Execution Output Interfaces</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  
+                  <div style={{ background: 'rgba(15, 23, 42, 0.4)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                      <span style={{ fontSize: '20px' }}>📊</span>
+                      <h4 style={{ color: '#E2E8F0', fontSize: '16px', margin: 0 }}>1. Excel Add-in Simulator Page (Live Data Sheets)</h4>
+                    </div>
+                    <ul style={{ color: '#94A3B8', fontSize: '14px', lineHeight: '1.6', margin: 0, paddingLeft: '24px', listStyleType: 'disc' }}>
+                      <li><strong>Location:</strong> <code style={{ background: 'rgba(0,0,0,0.3)', padding: '2px 6px', borderRadius: '4px', color: '#38BDF8', fontFamily: '"Fira Code", monospace' }}>http://localhost:3000/excel</code></li>
+                      <li><strong>Connect Tab:</strong> Refreshed Snowflake query data rows populate directly into worksheet grid cells.</li>
+                      <li><strong>Formulas Tab:</strong> Scanner dynamically highlights corrections (green background & cell tags).</li>
+                      <li><strong>NLQ Sync Tab:</strong> Question input dynamically loads compiled SQL text and results into the spreadsheet.</li>
+                      <li><strong>Dashboard Tab:</strong> KPI cards and interactive charts update visually.</li>
+                    </ul>
+                  </div>
+
+                  <div style={{ background: 'rgba(15, 23, 42, 0.4)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                      <span style={{ fontSize: '20px' }}>🛡️</span>
+                      <h4 style={{ color: '#E2E8F0', fontSize: '16px', margin: 0 }}>2. Pipeline Run Logs & Stages Console</h4>
+                    </div>
+                    <ul style={{ color: '#94A3B8', fontSize: '14px', lineHeight: '1.6', margin: 0, paddingLeft: '24px', listStyleType: 'disc' }}>
+                      <li><strong>Location:</strong> <code style={{ background: 'rgba(0,0,0,0.3)', padding: '2px 6px', borderRadius: '4px', color: '#38BDF8', fontFamily: '"Fira Code", monospace' }}>http://localhost:3000/console/pipelines</code></li>
+                      <li><strong>View:</strong> The 10-stage process loads in a real-time modal popup console with standard green checkboxes and detailed runtime terminal indicators.</li>
+                    </ul>
+                  </div>
+
+                  <div style={{ background: 'rgba(15, 23, 42, 0.4)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                      <span style={{ fontSize: '20px' }}>📂</span>
+                      <h4 style={{ color: '#E2E8F0', fontSize: '16px', margin: 0 }}>3. Backend REST API Interactive Docs</h4>
+                    </div>
+                    <ul style={{ color: '#94A3B8', fontSize: '14px', lineHeight: '1.6', margin: 0, paddingLeft: '24px', listStyleType: 'disc' }}>
+                      <li><strong>Location:</strong> <code style={{ background: 'rgba(0,0,0,0.3)', padding: '2px 6px', borderRadius: '4px', color: '#38BDF8', fontFamily: '"Fira Code", monospace' }}>http://localhost:8000/docs</code> (FastAPI Swagger UI)</li>
+                      <li><strong>Testing:</strong> Target APIs (<code style={{ background: 'rgba(0,0,0,0.3)', padding: '2px 4px', borderRadius: '4px', color: '#A78BFA', fontSize: '12px' }}>correct_formulas</code>, <code style={{ background: 'rgba(0,0,0,0.3)', padding: '2px 4px', borderRadius: '4px', color: '#A78BFA', fontSize: '12px' }}>refresh</code>, <code style={{ background: 'rgba(0,0,0,0.3)', padding: '2px 4px', borderRadius: '4px', color: '#A78BFA', fontSize: '12px' }}>nl_query</code>) can be passed parameters to directly check raw database returns.</li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
           </section>
 
         </div>

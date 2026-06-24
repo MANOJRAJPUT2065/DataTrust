@@ -7,6 +7,7 @@ import TermsOfService from './components/LegalTerms';
 import HowItWorks from './components/HowItWorks';
 import UserJourney from './components/UserJourney';
 import ArchitectureHLD from './components/ArchitectureHLD';
+import MetadataSyncHLD from './components/MetadataSyncHLD';
 
 export default function App() {
   const [view, setView] = useState(() => {
@@ -323,6 +324,8 @@ export default function App() {
         <UserJourney />
       ) : view === 'architecture-hld' ? (
         <ArchitectureHLD />
+      ) : view === 'metadata-sync' ? (
+        <MetadataSyncHLD />
       ) : view === 'version3' ? (
         <Version3 />
       ) : view === 'privacy' ? (
