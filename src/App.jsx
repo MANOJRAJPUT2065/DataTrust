@@ -13,6 +13,7 @@ import PostSyncArchitecture from './components/PostSyncArchitecture';
 import RedisSyncHLD from './components/RedisSyncHLD';
 import CaseStudies from './components/CaseStudies';
 import CaseStudiesHLD from './components/CaseStudiesHLD';
+import InvestorPitch from './components/InvestorPitch';
 
 
 
@@ -343,6 +344,8 @@ export default function App() {
         <CaseStudies />
       ) : view === 'case-studies-hld' ? (
         <CaseStudiesHLD />
+      ) : view === 'investor-pitch' ? (
+        <InvestorPitch />
       ) : view === 'version3' ? (
         <Version3 />
 
