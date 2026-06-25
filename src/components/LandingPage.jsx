@@ -708,6 +708,9 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
           <li><a href="/?view=user-journey" target="_blank" rel="noopener noreferrer">User Journey</a></li>
           <li><a href="/?view=architecture-hld" target="_blank" rel="noopener noreferrer">Architecture HLD</a></li>
           <li><a href="/?view=metadata-sync" target="_blank" rel="noopener noreferrer">Table Selection Fix</a></li>
+          <li><a href="/?view=semantic-engine" target="_blank" rel="noopener noreferrer">DAX-to-SQL Flow</a></li>
+          <li><a href="/?view=post-sync-arch" target="_blank" rel="noopener noreferrer">Post-Sync Arch</a></li>
+          <li><a href="/?view=redis-sync" target="_blank" rel="noopener noreferrer">Real-Time Sync</a></li>
           <li><a href="#" onClick={(e) => { e.preventDefault(); setView('v3'); }} style={{ color: '#00BFA5', fontWeight: 'bold' }}>V3.0 Launch Hub ✨</a></li>
           <li><a href="#usecases">Use Cases</a></li>
           <li><a href="#roi">ROI</a></li>

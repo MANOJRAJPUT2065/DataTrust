@@ -8,6 +8,9 @@ import HowItWorks from './components/HowItWorks';
 import UserJourney from './components/UserJourney';
 import ArchitectureHLD from './components/ArchitectureHLD';
 import MetadataSyncHLD from './components/MetadataSyncHLD';
+import SemanticEngineHLD from './components/SemanticEngineHLD';
+import PostSyncArchitecture from './components/PostSyncArchitecture';
+import RedisSyncHLD from './components/RedisSyncHLD';
 
 export default function App() {
   const [view, setView] = useState(() => {
@@ -326,6 +329,12 @@ export default function App() {
         <ArchitectureHLD />
       ) : view === 'metadata-sync' ? (
         <MetadataSyncHLD />
+      ) : view === 'semantic-engine' ? (
+        <SemanticEngineHLD />
+      ) : view === 'post-sync-arch' ? (
+        <PostSyncArchitecture />
+      ) : view === 'redis-sync' ? (
+        <RedisSyncHLD />
       ) : view === 'version3' ? (
         <Version3 />
       ) : view === 'privacy' ? (
