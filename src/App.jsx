@@ -11,6 +11,10 @@ import MetadataSyncHLD from './components/MetadataSyncHLD';
 import SemanticEngineHLD from './components/SemanticEngineHLD';
 import PostSyncArchitecture from './components/PostSyncArchitecture';
 import RedisSyncHLD from './components/RedisSyncHLD';
+import CaseStudies from './components/CaseStudies';
+import CaseStudiesHLD from './components/CaseStudiesHLD';
+
+
 
 export default function App() {
   const [view, setView] = useState(() => {
@@ -335,8 +339,14 @@ export default function App() {
         <PostSyncArchitecture />
       ) : view === 'redis-sync' ? (
         <RedisSyncHLD />
+      ) : view === 'case-studies' ? (
+        <CaseStudies />
+      ) : view === 'case-studies-hld' ? (
+        <CaseStudiesHLD />
       ) : view === 'version3' ? (
         <Version3 />
+
+
       ) : view === 'privacy' ? (
         <PrivacyPolicy setView={setView} />
       ) : view === 'terms' ? (

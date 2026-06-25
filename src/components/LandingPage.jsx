@@ -711,8 +711,9 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
           <li><a href="/?view=semantic-engine" target="_blank" rel="noopener noreferrer">DAX-to-SQL Flow</a></li>
           <li><a href="/?view=post-sync-arch" target="_blank" rel="noopener noreferrer">Post-Sync Arch</a></li>
           <li><a href="/?view=redis-sync" target="_blank" rel="noopener noreferrer">Real-Time Sync</a></li>
+          <li><a href="/?view=case-studies" target="_blank" rel="noopener noreferrer" style={{ color: '#00BFA5', fontWeight: 'bold' }}>Case Studies 🏢</a></li>
+          <li><a href="/?view=case-studies-hld" target="_blank" rel="noopener noreferrer">Integration HLD 📐</a></li>
           <li><a href="#" onClick={(e) => { e.preventDefault(); setView('v3'); }} style={{ color: '#00BFA5', fontWeight: 'bold' }}>V3.0 Launch Hub ✨</a></li>
-          <li><a href="#usecases">Use Cases</a></li>
           <li><a href="#roi">ROI</a></li>
           <li><a href="#pricing">Pricing</a></li>
           <li>
