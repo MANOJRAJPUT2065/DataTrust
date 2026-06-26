@@ -153,9 +153,8 @@ const ArchitectureHLD = () => {
     { id: 'category-5', label: '5. Excel Add-in V3' },
     { id: 'category-6', label: '6. Team Collaboration' },
     { id: 'category-7', label: '7. Audit & Compliance' },
-    { id: 'category-8', label: '8. Performance & Scale' },
+    { id: 'category-8', label: '8. Performance, Scale & Pipeline' },
     { id: 'category-9', label: '9. Ecosystem & APIs' },
-    { id: 'category-10', label: '10. Pipeline Engine' },
   ];
 
   return (
@@ -221,66 +220,162 @@ const ArchitectureHLD = () => {
             <p style={{ color: '#94A3B8', fontSize: '18px', marginBottom: '32px' }}>AI Intelligence Layer — Self-learning rules, predictive quality, and auto-correction</p>
             <CodeBlock 
               title="ai_automation_hld.txt"
-              code={`┌─────────────────────────────────────────────────────────────────────────────┐
-│                    AI & AUTOMATION LAYER                                   │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │  AI RULE INFERENCE V2                                                │  │
-│  │  ┌──────────────────────────────────────────────────────────────────┐│  │
-│  │  │  INPUT: Historical Data (12+ months)                            ││  │
-│  │  │  PROCESS: Statistical Analysis + ML Models                      ││  │
-│  │  │  OUTPUT: Inferred Rules with Confidence Scores                  ││  │
-│  │  │  USER: Review & Accept/Reject/Modify                            ││  │
-│  │  └──────────────────────────────────────────────────────────────────┘│  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │  PREDICTIVE QUALITY ENGINE                                           │  │
-│  │  ┌──────────────────────────────────────────────────────────────────┐│  │
-│  │  │  INPUT: Historical Data + Real-time Streams                     ││  │
-│  │  │  PROCESS: Prophet + XGBoost + Isolation Forest                  ││  │
-│  │  │  OUTPUT: Prediction + Risk Score + Alert 24hrs Before          ││  │
-│  │  │  USER: Receives Alert with Recommended Action                   ││  │
-│  │  └──────────────────────────────────────────────────────────────────┘│  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │  AUTO-CORRECTION V2                                                  │  │
-│  │  ┌──────────────────────────────────────────────────────────────────┐│  │
-│  │  │  INPUT: Data Quality Issue                                       ││  │
-│  │  │  PROCESS: Root Cause Analysis → Fix Strategy → Apply Fix        ││  │
-│  │  │  OUTPUT: Corrected Data + Audit Trail + Rollback Option         ││  │
-│  │  │  USER: Notification only — zero-touch                          ││  │
-│  │  └──────────────────────────────────────────────────────────────────┘│  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │  AUTO-DOCUMENTATION                                                  │  │
-│  │  ┌──────────────────────────────────────────────────────────────────┐│  │
-│  │  │  INPUT: Metric Metadata                                          ││  │
-│  │  │  PROCESS: LLM Summarization (LangChain + Groq)                  ││  │
-│  │  │  OUTPUT: Business-friendly Documentation                        ││  │
-│  │  │  USER: Read-only, always up-to-date                              ││  │
-│  │  └──────────────────────────────────────────────────────────────────┘│  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │  AI RECOMMENDATIONS                                                  │  │
-│  │  ┌──────────────────────────────────────────────────────────────────┐│  │
-│  │  │  INPUT: User Behavior + Data Patterns                           ││  │
-│  │  │  PROCESS: Collaborative Filtering + Pattern Matching            ││  │
-│  │  │  OUTPUT: "You might want to create this metric..."              ││  │
-│  │  │  USER: Suggestion-based guidance                                 ││  │
-│  │  └──────────────────────────────────────────────────────────────────┘│  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────────────┘`}
-              dataFlow={`Historical Data → AI Rule Inference → Rules Created
-Historical Data → Predictive Quality → 24hr Alert
-Issue Detected → Auto-Correction → Zero-Touch Fix
+              code={`┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                    AI & AUTOMATION LAYER — COMPLETE HLD                            │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                     │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │                          INPUT LAYER                                         │  │
+│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐ │  │
+│  │  │  Historical  │  │  Real-Time   │  │   User       │  │   Metric         │ │  │
+│  │  │  Data        │  │  Streams     │  │   Behavior   │  │   Metadata       │ │  │
+│  │  │  (12+ months)│  │              │  │              │  │                  │ │  │
+│  │  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────────┘ │  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                                │
+│                                    ▼                                                │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │                      AI PROCESSING ENGINE                                    │  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  1. AI RULE INFERENCE V2 (Self-Learning)                                ││  │
+│  │  │     ┌─────────────────────────────────────────────────────────────────┐││  │
+│  │  │     │  • Statistical Analysis (Mean, Std, Percentiles)                │││  │
+│  │  │     │  • Correlation Analysis (Revenue = Units × Price)               │││  │
+│  │  │     │  • Temporal Pattern Detection (Monday drops)                    │││  │
+│  │  │     │  • ML Models (Isolation Forest, XGBoost)                        │││  │
+│  │  │     │  • Confidence Scoring (99% → Accept, 85% → Review)              │││  │
+│  │  │     └─────────────────────────────────────────────────────────────────┘││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  2. PREDICTIVE QUALITY ENGINE (Prophet + XGBoost + Isolation Forest)    ││  │
+│  │  │     ┌─────────────────────────────────────────────────────────────────┐││  │
+│  │  │     │  • Time-Series Forecasting (Prophet Meta)                       │││  │
+│  │  │     │  • Trend + Seasonality + Holiday Effects                        │││  │
+│  │  │     │  • Anomaly Detection (Isolation Forest)                         │││  │
+│  │  │     │  • Risk Scoring (0.0 → 1.0)                                     │││  │
+│  │  │     │  • 24-Hour Early Warning Alerts                                 │││  │
+│  │  │     └─────────────────────────────────────────────────────────────────┘││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  3. AUTO-CORRECTION V2 (Zero-Touch Fix)                                 ││  │
+│  │  │     ┌─────────────────────────────────────────────────────────────────┐││  │
+│  │  │     │  • Root Cause Analysis                                          │││  │
+│  │  │     │  • Fix Strategy Selection (Rule-based vs LLM-based)             │││  │
+│  │  │     │  • Automatic Application with Rollback Support                  │││  │
+│  │  │     │  • Audit Logging (What, When, Why, Who Fixed)                   │││  │
+│  │  │     └─────────────────────────────────────────────────────────────────┘││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  4. AUTO-DOCUMENTATION (LLM-Generated)                                  ││  │
+│  │  │     ┌─────────────────────────────────────────────────────────────────┐││  │
+│  │  │     │  • LangChain + Groq Summarization                               │││  │
+│  │  │     │  • Business-Friendly Descriptions                               │││  │
+│  │  │     │  • Context-Aware (Schema + Lineage + Usage)                     │││  │
+│  │  │     │  • Always Up-to-Date                                            │││  │
+│  │  │     └─────────────────────────────────────────────────────────────────┘││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  5. AI RECOMMENDATIONS (Pattern Matching)                               ││  │
+│  │  │     ┌─────────────────────────────────────────────────────────────────┐││  │
+│  │  │     │  • Collaborative Filtering                                      │││  │
+│  │  │     │  • Pattern Recognition                                          │││  │
+│  │  │     │  • "You might want to create this metric..."                    │││  │
+│  │  │     │  • Suggestion-Based Guidance                                    │││  │
+│  │  │     └─────────────────────────────────────────────────────────────────┘││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                                │
+│                                    ▼                                                │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │                         OUTPUT LAYER                                        │  │
+│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐ │  │
+│  │  │  Inferred    │  │  Predictive  │  │  Auto-       │  │  Generated       │ │  │
+│  │  │  Rules       │  │  Alerts      │  │  Corrections │  │  Documentation   │ │  │
+│  │  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────────┘ │  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                     │
+└─────────────────────────────────────────────────────────────────────────────────────┘`}
+              dataFlow={`Historical Data → AI Rule Inference → Rules Created (Confidence Scored)
+Historical Data → Predictive Quality → 24hr Alert Generated
+Issue Detected → Auto-Correction → Zero-Touch Fix Applied
 Metric Created → Auto-Documentation → Docs Generated
-User Behavior → AI Recommendations → Suggestions`}
+User Behavior → AI Recommendations → Suggestions Shown`}
             />
+
+            <div style={{ marginTop: '24px', background: 'rgba(15, 23, 42, 0.4)', padding: '24px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#E2E8F0', marginBottom: '16px' }}>Feature Breakdown & Capabilities</h3>
+              <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px', color: '#94A3B8' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                      <th style={{ padding: '12px 8px', color: '#818CF8', fontWeight: '600' }}>Feature</th>
+                      <th style={{ padding: '12px 8px', color: '#818CF8', fontWeight: '600' }}>Status</th>
+                      <th style={{ padding: '12px 8px', color: '#818CF8', fontWeight: '600' }}>Tech Stack</th>
+                      <th style={{ padding: '12px 8px', color: '#818CF8', fontWeight: '600' }}>Key Metrics</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>AI Rule Inference V2</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>pandas, numpy, scikit-learn, xgboost</td>
+                      <td style={{ padding: '12px 8px' }}>&gt; 85% accuracy, &lt; 5 min creation</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Predictive Quality Engine</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>Prophet, XGBoost, Isolation Forest</td>
+                      <td style={{ padding: '12px 8px' }}>24hr early warning, &gt; 90% accuracy</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Auto-Correction V2</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>LangChain, Groq, pandas</td>
+                      <td style={{ padding: '12px 8px' }}>&gt; 85% success rate, &lt; 1 sec fix</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Auto-Documentation</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>LangChain, Groq, Jinja2</td>
+                      <td style={{ padding: '12px 8px' }}>100% coverage, real-time updates</td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>AI Recommendations</td>
+                      <td style={{ padding: '12px 8px', color: '#3B82F6' }}>Planned</td>
+                      <td style={{ padding: '12px 8px' }}>Collaborative Filtering</td>
+                      <td style={{ padding: '12px 8px' }}>&lt; 60% acceptance rate</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#E2E8F0', marginBottom: '16px' }}>LLM Fallback & Orchestration Chain</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ background: '#10B981', color: '#fff', fontSize: '11px', fontWeight: 'bold', padding: '3px 8px', borderRadius: '4px' }}>PRIMARY</span>
+                  <span style={{ fontFamily: 'monospace', color: '#E2E8F0' }}>Groq (Llama 3.3 70B)</span>
+                  <span style={{ color: '#64748B', fontSize: '13px' }}>— Fastest performance, open tier</span>
+                </div>
+                <div style={{ color: '#64748B', paddingLeft: '20px', fontSize: '12px' }}>▼ Fallback 1 (If API Limit Exceeded)</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ background: '#3B82F6', color: '#fff', fontSize: '11px', fontWeight: 'bold', padding: '3px 8px', borderRadius: '4px' }}>SECONDARY</span>
+                  <span style={{ fontFamily: 'monospace', color: '#E2E8F0' }}>OpenAI (GPT-4o)</span>
+                  <span style={{ color: '#64748B', fontSize: '13px' }}>— High logic accuracy</span>
+                </div>
+                <div style={{ color: '#64748B', paddingLeft: '20px', fontSize: '12px' }}>▼ Fallback 2 (If Gateway Error)</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ background: '#8B5CF6', color: '#fff', fontSize: '11px', fontWeight: 'bold', padding: '3px 8px', borderRadius: '4px' }}>TERTIARY</span>
+                  <span style={{ fontFamily: 'monospace', color: '#E2E8F0' }}>Gemini (1.5 Flash)</span>
+                  <span style={{ color: '#64748B', fontSize: '13px' }}>— Massively scalable fallback</span>
+                </div>
+                <div style={{ color: '#64748B', paddingLeft: '20px', fontSize: '12px' }}>▼ Fallback 3 (If Network Disruption)</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ background: '#EF4444', color: '#fff', fontSize: '11px', fontWeight: 'bold', padding: '3px 8px', borderRadius: '4px' }}>OFFLINE</span>
+                  <span style={{ fontFamily: 'monospace', color: '#E2E8F0' }}>Ollama (Llama 3.2 3B)</span>
+                  <span style={{ color: '#64748B', fontSize: '13px' }}>— Local computation host, 100% free</span>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* Category 2 */}
@@ -292,55 +387,141 @@ User Behavior → AI Recommendations → Suggestions`}
             <p style={{ color: '#94A3B8', fontSize: '18px', marginBottom: '32px' }}>NLQ — Ask in Plain English, Get Answers in Excel</p>
             <CodeBlock 
               title="nlq_hld.txt"
-              code={`┌─────────────────────────────────────────────────────────────────────────────┐
-│                    NATURAL LANGUAGE QUERY LAYER                            │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │  NLQ → SQL ENGINE                                                    │  │
-│  │  ┌──────────────────────────────────────────────────────────────────┐│  │
-│  │  │  INPUT: "What was Q4 Revenue for West region?"                  ││  │
-│  │  │  STEP 1: Embedding (OpenAI text-embedding-3-small)              ││  │
-│  │  │  STEP 2: Semantic Search (pgvector) → 95% match                ││  │
-│  │  │  STEP 3: LLM Translation (LangChain + Groq) → SQL              ││  │
-│  │  │  STEP 4: Quality Engine Validation → ✅ Pass                   ││  │
-│  │  │  STEP 5: Execute on Snowflake → Result in 2 seconds            ││  │
-│  │  │  OUTPUT: ₹85.4 Cr + Lineage Attached                           ││  │
-│  │  └──────────────────────────────────────────────────────────────────┘│  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │  pgvector SEMANTIC SEARCH                                            │  │
-│  │  ┌──────────────────────────────────────────────────────────────────┐│  │
-│  │  │  INPUT: User Question "customer churn"                          ││  │
-│  │  │  PROCESS: Vector Similarity Search                              ││  │
-│  │  │  OUTPUT: Churn Rate (95%), Retention (88%), MAU (72%)           ││  │
-│  │  │  USER: Finds metrics by meaning, not just keywords              ││  │
-│  │  └──────────────────────────────────────────────────────────────────┘│  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │  RAG-POWERED ACCURACY                                                │  │
-│  │  ┌──────────────────────────────────────────────────────────────────┐│  │
-│  │  │  INPUT: User Question + Relevant Metrics                        ││  │
-│  │  │  PROCESS: Retrieval-Augmented Generation                       ││  │
-│  │  │  OUTPUT: Accurate SQL with 90%+ Accuracy                        ││  │
-│  │  │  USER: Gets correct answer every time                           ││  │
-│  │  └──────────────────────────────────────────────────────────────────┘│  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │  NLQ IN EXCEL RIBBON                                                 │  │
-│  │  ┌──────────────────────────────────────────────────────────────────┐│  │
-│  │  │  INPUT: User types question directly in Excel                   ││  │
-│  │  │  PROCESS: Same NLQ Engine + Excel Write-back                   ││  │
-│  │  │  OUTPUT: Data loads directly into Excel sheet                   ││  │
-│  │  │  USER: No need to leave Excel                                   ││  │
-│  │  └──────────────────────────────────────────────────────────────────┘│  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────────────┘`}
+              code={`┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                    NATURAL LANGUAGE QUERY LAYER — COMPLETE HLD                     │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                     │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │  USER INPUT: "What was Q4 Revenue for West region?"                         │  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                                │
+│                                    ▼                                                │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │  STEP 1: EMBEDDING (OpenAI text-embedding-3-small)                          │  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  • Convert question to 1536-dimension vector                            ││  │
+│  │  │  • Semantic understanding of intent                                     ││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                                │
+│                                    ▼                                                │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │  STEP 2: SEMANTIC SEARCH (pgvector)                                         │  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  • Vector similarity search in PostgreSQL                                ││  │
+│  │  │  • Revenue → 95% match                                                   ││  │
+│  │  │  • Region dimension → 92% match                                          ││  │
+│  │  │  • Quarter filter → 88% match                                            ││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                                │
+│                                    ▼                                                │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │  STEP 3: LLM TRANSLATION (LangChain + Groq)                                 │  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  • Few-shot translation with examples                                   ││  │
+│  │  │  • Convert to Snowflake SQL                                             ││  │
+│  │  │  • SQL: SELECT SUM(revenue) FROM sales WHERE quarter=4 AND region='West' ││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                                │
+│                                    ▼                                                │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │  STEP 4: QUALITY VALIDATION                                                 │  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  • Check against governance rules                                        ││  │
+│  │  │  • Dry-run validation (DuckDB)                                           ││  │
+│  │  │  • Security check (no DROP/DELETE/UPDATE)                               ││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                                │
+│                                    ▼                                                │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │  STEP 5: EXECUTE & RETURN                                                   │  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  • Run on Snowflake (or fallback)                                       ││  │
+│  │  │  • Result: ₹85.4 Cr + Lineage Attached                                   ││  │
+│  │  │  • Time: < 2 seconds                                                     ││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                                │
+│                                    ▼                                                │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │  OUTPUT: Excel Worksheet with Live Data                                     │  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  • Data loads directly into Excel sheet                                  ││  │
+│  │  │  • Lineage attached to every cell                                       ││  │
+│  │  │  • Trusted number with green status                                      ││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                     │
+└─────────────────────────────────────────────────────────────────────────────────────┘`}
               dataFlow={`User Question → Embedding → Semantic Search → LLM → SQL → Validate → Execute → Excel`}
             />
+
+            <div style={{ marginTop: '24px', background: 'rgba(15, 23, 42, 0.4)', padding: '24px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#E2E8F0', marginBottom: '16px' }}>Feature Breakdown & Targets</h3>
+              <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px', color: '#94A3B8' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                      <th style={{ padding: '12px 8px', color: '#10B981', fontWeight: '600' }}>Feature</th>
+                      <th style={{ padding: '12px 8px', color: '#10B981', fontWeight: '600' }}>Status</th>
+                      <th style={{ padding: '12px 8px', color: '#10B981', fontWeight: '600' }}>Tech Stack</th>
+                      <th style={{ padding: '12px 8px', color: '#10B981', fontWeight: '600' }}>Key Metrics</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>NLQ → SQL Engine</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>LangChain, Groq, OpenAI</td>
+                      <td style={{ padding: '12px 8px' }}>&lt; 2 sec response</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>pgvector Semantic Search</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>pgvector, IVFFlat</td>
+                      <td style={{ padding: '12px 8px' }}>&gt; 90% match accuracy</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>RAG-Powered Accuracy</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>LangChain, pgvector</td>
+                      <td style={{ padding: '12px 8px' }}>&gt; 90% accuracy</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>90%+ Translation Accuracy</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>Groq, OpenAI, Gemini</td>
+                      <td style={{ padding: '12px 8px' }}>&gt; 90% accuracy</td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>NLQ in Excel Ribbon</td>
+                      <td style={{ padding: '12px 8px', color: '#3B82F6' }}>Planned</td>
+                      <td style={{ padding: '12px 8px' }}>Office.js</td>
+                      <td style={{ padding: '12px 8px' }}>Native Excel integration</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#E2E8F0', marginBottom: '16px' }}>Technology Stack Reference</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#10B981', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>Orchestration & LLM</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>LangChain, Groq (Llama 3.3 70B), OpenAI (GPT-4o)</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#10B981', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>Vector Databases</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>pgvector (IVFFlat), OpenAI text-embedding-3-small</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#10B981', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>Offline Processing</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>Ollama (Llama 3.2 3B local sandbox node)</div>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* Category 3 */}
@@ -352,51 +533,87 @@ User Behavior → AI Recommendations → Suggestions`}
             <p style={{ color: '#94A3B8', fontSize: '18px', marginBottom: '32px' }}>Every Cloud, Every Stack — Connect to Any Data Platform</p>
             <CodeBlock 
               title="multicloud_hld.txt"
-              code={`┌─────────────────────────────────────────────────────────────────────────────┐
-│                    MULTI-CLOUD CONNECTIVITY LAYER                          │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │  CONNECTOR LAYER                                                     │  │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐              │  │
-│  │  │  Snowflake   │  │  Databricks  │  │  Fabric      │              │  │
-│  │  │  Connector   │  │  Connector   │  │  Connector   │              │  │
-│  │  └──────────────┘  └──────────────┘  └──────────────┘              │  │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐              │  │
-│  │  │  Redshift    │  │  BigQuery    │  │  Azure SQL   │              │  │
-│  │  │  Connector   │  │  Connector   │  │  Connector   │              │  │
-│  │  └──────────────┘  └──────────────┘  └──────────────┘              │  │
-│  │  ┌──────────────┐  ┌──────────────┐                                 │  │
-│  │  │  dbt         │  │  Looker/     │                                 │  │
-│  │  │  Connector   │  │  Tableau     │                                 │  │
-│  │  └──────────────┘  └──────────────┘                                 │  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │  UNIFIED SEMANTIC LAYER                                              │  │
-│  │  • One definition for every metric across ALL clouds                 │  │
-│  │  • Revenue = SUM(net_sales) WHERE status='Completed'                │  │
-│  │  • Same number, regardless of source                                 │  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │  QUERY ROUTER                                                       │  │
-│  │  • Determines which cloud to query                                   │  │
-│  │  • Optimizes for performance                                         │  │
-│  │  • Handles cross-cloud joins                                         │  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-│                                                                             │
-│  ┌─────────────────────────────────────────────────────────────────────┐  │
-│  │  UNIFIED VIEW                                                       │  │
-│  │  • User sees ONE dashboard                                           │  │
-│  │  • Source doesn't matter                                             │  │
-│  │  • Data from ALL clouds combined                                     │  │
-│  └─────────────────────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────────────┘`}
+              code={`┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                    MULTI-CLOUD CONNECTIVITY LAYER — COMPLETE HLD                  │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                     │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │  CONNECTOR LAYER                                                             │  │
+│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐    │  │
+│  │  │  Snowflake   │  │  Databricks  │  │   Fabric     │  │   Redshift   │    │  │
+│  │  │  Connector   │  │  Connector   │  │  Connector   │  │  Connector   │    │  │
+│  │  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘    │  │
+│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐    │  │
+│  │  │  BigQuery    │  │  Azure SQL   │  │     dbt      │  │  Looker/     │    │  │
+│  │  │  Connector   │  │  Connector   │  │  Connector   │  │  Tableau     │    │  │
+│  │  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘    │  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                                │
+│                                    ▼                                                │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │  UNIFIED SEMANTIC LAYER                                                      │  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  • One definition for every metric across ALL clouds                    ││  │
+│  │  │  • Revenue = SUM(net_sales) WHERE status='Completed'                    ││  │
+│  │  │  • Same number, regardless of source                                    ││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                                │
+│                                    ▼                                                │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │  QUERY ROUTER                                                               │  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  • Determines which cloud to query                                      ││  │
+│  │  │  • Optimizes for performance                                            ││  │
+│  │  │  • Handles cross-cloud joins                                            ││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                    │                                                │
+│                                    ▼                                                │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐  │
+│  │  UNIFIED VIEW                                                               │  │
+│  │  ┌─────────────────────────────────────────────────────────────────────────┐│  │
+│  │  │  • User sees ONE dashboard                                              ││  │
+│  │  │  • Source doesn't matter                                                ││  │
+│  │  │  • Data from ALL clouds combined                                        ││  │
+│  │  └─────────────────────────────────────────────────────────────────────────┘│  │
+│  └─────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                     │
+└─────────────────────────────────────────────────────────────────────────────────────┘`}
               dataFlow={`Cloud A → Connector A → Semantic Layer → Query Router → Unified View
 Cloud B → Connector B → Semantic Layer → Query Router → Unified View
 User sees: ONE dashboard, ALL data, ANY cloud`}
             />
+
+            <div style={{ marginTop: '24px', background: 'rgba(15, 23, 42, 0.4)', padding: '24px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#E2E8F0', marginBottom: '16px' }}>Multi-Cloud Driver Implementation</h3>
+              <p style={{ color: '#94A3B8', fontSize: '14px', marginBottom: '16px' }}>
+                The connector architecture abstracts the queries, translating them based on unified semantic registry rules into dialect-compliant backend structures.
+              </p>
+              <CodeBlock 
+                title="multi_cloud_connector.py"
+                code={`class MultiCloudConnector:
+    def __init__(self, connection_type, credentials):
+        self.connection_type = connection_type
+        self.credentials = credentials
+        self._connector = self._get_connector()
+    
+    def _get_connector(self):
+        if self.connection_type == "snowflake":
+            import snowflake.connector
+            return snowflake.connector.connect(**self.credentials)
+        elif self.connection_type == "databricks":
+            import databricks.sql
+            return databricks.sql.connect(**self.credentials)
+        elif self.connection_type == "redshift":
+            import psycopg2
+            return psycopg2.connect(**self.credentials)
+        elif self.connection_type == "bigquery":
+            from google.cloud import bigquery
+            return bigquery.Client(**self.credentials)
+        raise ValueError(f"Unknown connection type: {self.connection_type}")`}
+              />
+            </div>
           </section>
 
           {/* Category 4 */}
@@ -454,6 +671,68 @@ User sees: ONE dashboard, ALL data, ANY cloud`}
 All Changes → Version History → Audit Trail
 All Lineage → Column-Level Tracking → Impact Analysis`}
             />
+
+            <div style={{ marginTop: '24px', background: 'rgba(15, 23, 42, 0.4)', padding: '24px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#E2E8F0', marginBottom: '16px' }}>Feature Breakdown</h3>
+              <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px', color: '#94A3B8' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                      <th style={{ padding: '12px 8px', color: '#F59E0B', fontWeight: '600' }}>Feature</th>
+                      <th style={{ padding: '12px 8px', color: '#F59E0B', fontWeight: '600' }}>Status</th>
+                      <th style={{ padding: '12px 8px', color: '#F59E0B', fontWeight: '600' }}>Tech Stack</th>
+                      <th style={{ padding: '12px 8px', color: '#F59E0B', fontWeight: '600' }}>Key Metrics</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Canonical Metric Definitions</td>
+                      <td style={{ padding: '12px 8px', color: '#10B981' }}>✅ Complete</td>
+                      <td style={{ padding: '12px 8px' }}>PostgreSQL, SQLAlchemy</td>
+                      <td style={{ padding: '12px 8px' }}>100% definition coverage</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Full Version History</td>
+                      <td style={{ padding: '12px 8px', color: '#10B981' }}>✅ Complete</td>
+                      <td style={{ padding: '12px 8px' }}>PostgreSQL, Pydantic</td>
+                      <td style={{ padding: '12px 8px' }}>Every change tracked</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Column-Level Lineage</td>
+                      <td style={{ padding: '12px 8px', color: '#10B981' }}>✅ Complete</td>
+                      <td style={{ padding: '12px 8px' }}>PostgreSQL, JSONB</td>
+                      <td style={{ padding: '12px 8px' }}>Source → target mapping</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Vector Embeddings</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>OpenAI, pgvector</td>
+                      <td style={{ padding: '12px 8px' }}>1536 dimensions</td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Semantic Search</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>pgvector, IVFFlat</td>
+                      <td style={{ padding: '12px 8px' }}>&gt; 90% relevance</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#F59E0B', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>Storage Layer</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>PostgreSQL + pgvector (IVFFlat index) for sub-50ms vector searches</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#F59E0B', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>Embedding Model</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>OpenAI text-embedding-3-small producing 1536-dim vectors per metric</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#F59E0B', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>Versioning</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>SemVer (MAJOR.MINOR.PATCH) with immutable history — every change is auditable</div>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* Category 5 */}
@@ -518,6 +797,68 @@ All Lineage → Column-Level Tracking → Impact Analysis`}
 User Types NLQ → NLQ Engine → SQL → Execute → Excel Sheet
 User Builds Dashboard → Live Data → Auto-Validate → Publish`}
             />
+
+            <div style={{ marginTop: '24px', background: 'rgba(15, 23, 42, 0.4)', padding: '24px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#E2E8F0', marginBottom: '16px' }}>Feature Breakdown &amp; Roadmap</h3>
+              <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px', color: '#94A3B8' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                      <th style={{ padding: '12px 8px', color: '#22C55E', fontWeight: '600' }}>Feature</th>
+                      <th style={{ padding: '12px 8px', color: '#22C55E', fontWeight: '600' }}>Status</th>
+                      <th style={{ padding: '12px 8px', color: '#22C55E', fontWeight: '600' }}>Tech Stack</th>
+                      <th style={{ padding: '12px 8px', color: '#22C55E', fontWeight: '600' }}>Key Metrics</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Excel Dashboard Builder</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>Office.js, React</td>
+                      <td style={{ padding: '12px 8px' }}>Drag-and-drop, live data</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Real-Time Collaboration</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>WebSockets, Office.js</td>
+                      <td style={{ padding: '12px 8px' }}>Multi-user sync &lt; 500ms</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Template Marketplace</td>
+                      <td style={{ padding: '12px 8px', color: '#3B82F6' }}>Planned</td>
+                      <td style={{ padding: '12px 8px' }}>Office.js, PostgreSQL</td>
+                      <td style={{ padding: '12px 8px' }}>Financial, Sales, HR templates</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>NLQ in Excel Ribbon</td>
+                      <td style={{ padding: '12px 8px', color: '#3B82F6' }}>Planned</td>
+                      <td style={{ padding: '12px 8px' }}>Office.js, LangChain</td>
+                      <td style={{ padding: '12px 8px' }}>&lt; 2 sec response in Excel</td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Power BI Integration</td>
+                      <td style={{ padding: '12px 8px', color: '#3B82F6' }}>Planned</td>
+                      <td style={{ padding: '12px 8px' }}>Power BI REST API</td>
+                      <td style={{ padding: '12px 8px' }}>One-click publish to Power BI</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#22C55E', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>Ribbon Buttons</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>[Refresh] [Validate] [Publish] [Audit] [Settings] [NLQ] — native Excel toolbar</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#22C55E', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>Collaboration Tech</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>WebSocket channels per workbook — change conflicts resolved via CRDT</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#22C55E', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>Data Trust Score</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>Green ✅ = governed, Yellow ⚠️ = needs review, Red ❌ = invalid — shown per cell</div>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* Category 6 */}

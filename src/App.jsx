@@ -14,6 +14,13 @@ import RedisSyncHLD from './components/RedisSyncHLD';
 import CaseStudies from './components/CaseStudies';
 import CaseStudiesHLD from './components/CaseStudiesHLD';
 import InvestorPitch from './components/InvestorPitch';
+import SemanticEngineV2Docs from './components/SemanticEngineV2Docs';
+import QualityEngineV2Docs from './components/QualityEngineV2Docs';
+import AuditEngineV2Docs from './components/AuditEngineV2Docs';
+import DataFlowDocs from './components/DataFlowDocs';
+import PipelineEngineDocs from './components/PipelineEngineDocs';
+import IntelligenceLayerDocs from './components/IntelligenceLayerDocs';
+import NotificationSystemDocs from './components/NotificationSystemDocs';
 
 
 
@@ -348,8 +355,20 @@ export default function App() {
         <InvestorPitch />
       ) : view === 'version3' ? (
         <Version3 />
-
-
+      ) : view === 'semantic-engine-v2' ? (
+        <SemanticEngineV2Docs />
+      ) : view === 'quality-engine-v2' ? (
+        <QualityEngineV2Docs />
+      ) : view === 'audit-engine-v2' ? (
+        <AuditEngineV2Docs />
+      ) : view === 'data-flow' ? (
+        <DataFlowDocs />
+      ) : view === 'pipeline-engine-v2' ? (
+        <PipelineEngineDocs />
+      ) : view === 'intelligence-layer' ? (
+        <IntelligenceLayerDocs />
+      ) : view === 'notification-system' ? (
+        <NotificationSystemDocs />
       ) : view === 'privacy' ? (
         <PrivacyPolicy setView={setView} />
       ) : view === 'terms' ? (

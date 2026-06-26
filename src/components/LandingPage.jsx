@@ -695,6 +695,47 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
         @media (max-width: 640px) {
           .early-cta-card { padding: 36px 24px; }
         }
+        
+        /* V3 HLD Dropdown */
+        .nav-dropdown {
+          position: relative;
+          display: inline-block;
+        }
+        .nav-dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #0F172A;
+          min-width: 250px;
+          box-shadow: 0px 8px 24px rgba(0,0,0,0.6);
+          z-index: 1000;
+          border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.1);
+          padding: 8px 0;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          margin-top: 8px;
+        }
+        .nav-dropdown-content a {
+          color: #94A3B8 !important;
+          padding: 10px 16px;
+          text-decoration: none;
+          display: block;
+          font-size: 13px !important;
+          transition: all 0.2s ease;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          text-align: left;
+        }
+        .nav-dropdown-content a:last-child {
+          border-bottom: none;
+        }
+        .nav-dropdown-content a:hover {
+          background-color: #1E293B;
+          color: #00BFA5 !important;
+        }
+        .nav-dropdown:hover .nav-dropdown-content {
+          display: block;
+        }
       `}</style>
 
       {/* ─── NAVIGATION ─────────────────────────────────────────────── */}
@@ -715,6 +756,18 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
           <li><a href="/?view=case-studies-hld" target="_blank" rel="noopener noreferrer">Integration HLD 📐</a></li>
           <li><a href="/?view=investor-pitch" target="_blank" rel="noopener noreferrer" style={{ color: '#818CF8', fontWeight: 'bold' }}>Investor Pitch 🚀</a></li>
           <li><a href="#" onClick={(e) => { e.preventDefault(); setView('v3'); }} style={{ color: '#00BFA5', fontWeight: 'bold' }}>V3.0 Launch Hub ✨</a></li>
+          <li className="nav-dropdown">
+            <a href="#" onClick={(e) => e.preventDefault()} style={{ color: '#C084FC', fontWeight: 'bold' }}>V3 HLD Docs 📐</a>
+            <div className="nav-dropdown-content">
+              <a href="/?view=semantic-engine-v2" target="_blank" rel="noopener noreferrer">🧠 Semantic Engine V2 HLD</a>
+              <a href="/?view=quality-engine-v2" target="_blank" rel="noopener noreferrer">✅ Quality Engine V2 HLD</a>
+              <a href="/?view=audit-engine-v2" target="_blank" rel="noopener noreferrer">📋 Audit Engine V2 HLD</a>
+              <a href="/?view=pipeline-engine-v2" target="_blank" rel="noopener noreferrer">⚙️ Pipeline Engine HLD</a>
+              <a href="/?view=intelligence-layer" target="_blank" rel="noopener noreferrer">🔮 AI Intelligence Layer HLD</a>
+              <a href="/?view=notification-system" target="_blank" rel="noopener noreferrer">🔔 Notification System HLD</a>
+              <a href="/?view=data-flow" target="_blank" rel="noopener noreferrer">📊 End-to-End Data Flow</a>
+            </div>
+          </li>
           <li><a href="#roi">ROI</a></li>
           <li><a href="#pricing">Pricing</a></li>
           <li>

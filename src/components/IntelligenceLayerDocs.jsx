@@ -55,11 +55,74 @@ const hldFlows = [
 export default function IntelligenceLayerDocs() {
   return (
     <div style={{ padding: '60px 0', background: '#0F172A', color: '#CBD5E1' }}>
-      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-        <h2 style={{ color: '#fff', fontSize: '32px', marginBottom: '16px' }}>AI-First Intelligence Layer — Complete HLD + LLD</h2>
-        <p style={{ color: '#94A3B8', fontSize: '16px', marginBottom: '60px', lineHeight: '1.6' }}>
-          Introducing an AI-first intelligence layer featuring predictive data quality, natural language querying, self-learning rule inference, auto-correction engines, semantic search, multi-cloud integrations, collaborative workspaces, and zero-touch governance automation.
-        </p>
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 20px' }}>
+        
+        {/* Header */}
+        <div style={{ marginBottom: '50px' }}>
+          <div style={{ display: 'inline-block', padding: '4px 12px', background: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '20px', color: '#818CF8', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '16px' }}>
+            Intelligence Layer V3.0
+          </div>
+          <h2 style={{ color: '#fff', fontSize: '36px', fontWeight: '800', margin: '0 0 10px 0' }}>AI & Intelligence Layer</h2>
+          <p style={{ color: '#94A3B8', fontSize: '18px', margin: 0, lineHeight: '1.6' }}>
+            AI-first intelligence layer featuring predictive data quality, natural language querying, self-learning rule inference, auto-correction engines, and auto-documentation.
+          </p>
+        </div>
+
+        {/* ─── HLD SECTION ─────────────────────────────────────────── */}
+        <h3 style={{ color: '#818CF8', fontSize: '24px', margin: '40px 0 20px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ fontSize: '20px' }}>🔮</span> 1. High-Level Design (HLD)
+        </h3>
+
+        {/* ASCII HLD Box */}
+        <div style={{ background: '#090D1A', border: '1px solid rgba(99,102,241,0.2)', borderRadius: '12px', padding: '24px', overflowX: 'auto', marginBottom: '40px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+            <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#EF4444' }}></div>
+            <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#F59E0B' }}></div>
+            <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10B981' }}></div>
+            <span style={{ fontSize: '11px', color: '#64748B', fontFamily: 'monospace', marginLeft: '10px' }}>intelligence_layer_hld.ascii</span>
+          </div>
+          <pre style={{ margin: 0, color: '#818CF8', fontSize: '12px', fontFamily: 'var(--font-mono, monospace)', lineHeight: '1.4' }}>{`┌─────────────────────────────────────────────────────────────────────────────┐
+│                    AI & AUTOMATION LAYER — COMPLETE HLD                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │  INPUT LAYER                                                          │  │
+│  │  • Historical Data (12+ Months)  • Real-Time Streams  • Metadata      │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                      │                                      │
+│                                      ▼                                      │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │  AI PROCESSING ENGINE                                                 │  │
+│  │  ┌──────────────────────────────────────────────────────────────────┐ │  │
+│  │  │  1. AI RULE INFERENCE V2 (Self-Learning)                         │ │  │
+│  │  │     • Statistical Analysis (Mean, Std, Percentiles)              │ │  │
+│  │  │     • Correlation (Revenue = Units × Price), Temporal Patterns   │ │  │
+│  │  └──────────────────────────────────────────────────────────────────┘ │  │
+│  │  ┌──────────────────────────────────────────────────────────────────┐ │  │
+│  │  │  2. PREDICTIVE QUALITY ENGINE (Prophet + XGBoost + Isolation For)│ │  │
+│  │  │     • Time-Series Forecasting, Anomaly Risk Scoring (0.0 → 1.0)  │ │  │
+│  │  └──────────────────────────────────────────────────────────────────┘ │  │
+│  │  ┌──────────────────────────────────────────────────────────────────┐ │  │
+│  │  │  3. AUTO-CORRECTION V2 (Zero-Touch Fix)                          │ │  │
+│  │  │     • Root Cause Analysis, LangChain Strategy, Rollback Auditing │ │  │
+│  │  └──────────────────────────────────────────────────────────────────┘ │  │
+│  │  ┌──────────────────────────────────────────────────────────────────┐ │  │
+│  │  │  4. AUTO-DOCUMENTATION (LLM-Generated)                            │ │  │
+│  │  │     • LangChain + Groq context-aware schema summaries            │ │  │
+│  │  └──────────────────────────────────────────────────────────────────┘ │  │
+│  │  ┌──────────────────────────────────────────────────────────────────┐ │  │
+│  │  │  5. AI RECOMMENDATIONS (Pattern Matching)                         │ │  │
+│  │  │     • Collaborative Filtering & user suggestion guidance         │ │  │
+│  │  └──────────────────────────────────────────────────────────────────┘ │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                      │                                      │
+│                                      ▼                                      │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │  OUTPUT LAYER                                                         │  │
+│  │  • Inferred Rules  • Predictive Alerts  • Auto-Fixes  • Generated Docs│  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────────┘`}</pre>
+        </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
           {/* HLD Section */}

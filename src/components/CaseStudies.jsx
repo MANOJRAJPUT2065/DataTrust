@@ -110,10 +110,21 @@ const MermaidBlock = ({ chart, id }) => {
         left: '31px', 
         top: '24px', 
         bottom: '24px', 
-        width: '2px', 
-        background: 'linear-gradient(to bottom, #10B981, #6366F1, #8B5CF6, #F59E0B, #10B981)',
-        zIndex: 0
-      }}></div>
+        width: '3px', 
+        background: 'rgba(255, 255, 255, 0.05)',
+        borderRadius: '1.5px',
+        zIndex: 0,
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          position: 'absolute',
+          left: 0,
+          width: '100%',
+          height: '120px',
+          background: 'linear-gradient(to bottom, transparent, #00BFA5, #6366F1, transparent)',
+          animation: 'run-dot 3s infinite linear'
+        }}></div>
+      </div>
 
       {steps.map((step, idx) => (
         <div key={idx} style={{ position: 'relative', zIndex: 1, marginBottom: step.isDecision ? '16px' : '8px' }}>
@@ -1971,13 +1982,13 @@ END: Monday 09:05 AM`,
 
 // Generates fallback mock metrics dynamically for any company not fully listed above
 const getCompanyData = (id) => {
-  const compId = id.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const compId = id.toLowerCase().replace(/\s+&\s+/g, 'and').replace(/[^a-z0-9]/g, '');
   if (companyDetailsMap[compId]) {
     return companyDetailsMap[compId];
   }
 
   // Fallback template matching the search list
-  const base = directoryData.find(c => c.company.toLowerCase().replace(/[^a-z0-9]/g, '') === compId) || directoryData[0];
+  const base = directoryData.find(c => c.company.toLowerCase().replace(/\s+&\s+/g, 'and').replace(/[^a-z0-9]/g, '') === compId) || directoryData[0];
   
   const sectorMap = {
     "Energy": { name: "Ingrid", initials: "IB", color: "#10B981" },
@@ -2264,6 +2275,7 @@ export default function CaseStudies() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedIndustry, setSelectedIndustry] = useState('All');
   const [activeSpotlightId, setActiveSpotlightId] = useState(directoryData[0].company.toLowerCase());
+  const [flowView, setFlowView] = useState('sequence'); // sequence | mermaid
 
   // ROI Calculator state
   const [calcSector, setCalcSector] = useState('Finance');
@@ -2473,6 +2485,15 @@ export default function CaseStudies() {
           color: #FFF;
           border-color: #6366F1;
           box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+        }
+        @keyframes run-dot {
+          0% { top: -120px; }
+          100% { top: 100%; }
+        }
+        @keyframes pipeline-pulse {
+          0% { box-shadow: 0 0 8px rgba(0, 191, 165, 0.2); }
+          50% { box-shadow: 0 0 16px rgba(0, 191, 165, 0.5); }
+          100% { box-shadow: 0 0 8px rgba(0, 191, 165, 0.2); }
         }
       `}</style>
 
@@ -2793,10 +2814,50 @@ export default function CaseStudies() {
 
                 {/* 8. Graphical Workflow Map */}
                 <div style={{ marginBottom: '40px' }}>
-                  <h3 style={{ fontSize: '16px', color: '#FFF', fontWeight: '700', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                    🗺️ End-to-End Workflow Diagram
-                  </h3>
-                  <GraphicalWorkflowMap companyId={activeSpotlightId} data={selectedData} />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
+                    <h3 style={{ fontSize: '16px', color: '#FFF', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', margin: 0 }}>
+                      🗺️ End-to-End Workflow Diagram & HLD
+                    </h3>
+                    <div style={{ display: 'flex', gap: '8px', background: 'rgba(0,0,0,0.2)', padding: '4px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                      <button 
+                        onClick={() => setFlowView('sequence')} 
+                        style={{ 
+                          padding: '6px 12px', 
+                          borderRadius: '6px', 
+                          fontSize: '12px', 
+                          fontWeight: '600', 
+                          background: flowView === 'sequence' ? 'rgba(99,102,241,0.15)' : 'transparent', 
+                          border: 'none', 
+                          color: flowView === 'sequence' ? '#818CF8' : '#64748b',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s'
+                        }}
+                      >
+                        🔄 Sequence Map
+                      </button>
+                      <button 
+                        onClick={() => setFlowView('mermaid')} 
+                        style={{ 
+                          padding: '6px 12px', 
+                          borderRadius: '6px', 
+                          fontSize: '12px', 
+                          fontWeight: '600', 
+                          background: flowView === 'mermaid' ? 'rgba(0,191,165,0.15)' : 'transparent', 
+                          border: 'none', 
+                          color: flowView === 'mermaid' ? '#00BFA5' : '#64748b',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s'
+                        }}
+                      >
+                        📊 Architecture HLD
+                      </button>
+                    </div>
+                  </div>
+                  {flowView === 'sequence' ? (
+                    <GraphicalWorkflowMap companyId={activeSpotlightId} data={selectedData} />
+                  ) : (
+                    <MermaidBlock chart={selectedData.mermaidChart} id={activeSpotlightId} />
+                  )}
                 </div>
 
 
@@ -2838,6 +2899,87 @@ export default function CaseStudies() {
         {/* TAB 2: DIRECTORY GRID */}
         {activeTab === 'directory' && (
           <div>
+            {/* Dynamic Dashboard Metrics Row */}
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+              gap: '20px', 
+              marginBottom: '32px' 
+            }}>
+              <div style={{ 
+                background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.4) 100%)', 
+                border: '1px solid rgba(0, 191, 165, 0.2)', 
+                borderRadius: '16px', 
+                padding: '20px 24px', 
+                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px'
+              }}>
+                <div style={{ fontSize: '32px' }}>🏢</div>
+                <div>
+                  <span style={{ fontSize: '11px', color: '#64748B', textTransform: 'uppercase', fontWeight: '700', letterSpacing: '0.5px', display: 'block' }}>Matching Enterprises</span>
+                  <span style={{ fontSize: '24px', fontWeight: '800', color: '#FFF', fontFamily: '"Space Grotesk", sans-serif' }}>
+                    {filteredDirectory.length} <span style={{ fontSize: '14px', color: '#64748B', fontWeight: '500' }}>/ {directoryData.length}</span>
+                  </span>
+                </div>
+              </div>
+
+              <div style={{ 
+                background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.4) 100%)', 
+                border: '1px solid rgba(99, 102, 241, 0.2)', 
+                borderRadius: '16px', 
+                padding: '20px 24px', 
+                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px'
+              }}>
+                <div style={{ fontSize: '32px' }}>⚡</div>
+                <div>
+                  <span style={{ fontSize: '11px', color: '#64748B', textTransform: 'uppercase', fontWeight: '700', letterSpacing: '0.5px', display: 'block' }}>Time Saved / Month</span>
+                  <span style={{ fontSize: '24px', fontWeight: '800', color: '#00BFA5', fontFamily: '"Space Grotesk", sans-serif' }}>
+                    {filteredDirectory.reduce((acc, curr) => {
+                      const details = getCompanyData(curr.company.toLowerCase());
+                      if (details && details.roiStats) {
+                        const hours = parseInt(details.roiStats.hoursSaved);
+                        return acc + (isNaN(hours) ? 0 : hours);
+                      }
+                      return acc;
+                    }, 0).toLocaleString()} <span style={{ fontSize: '14px', fontWeight: '500' }}>hours</span>
+                  </span>
+                </div>
+              </div>
+
+              <div style={{ 
+                background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.4) 100%)', 
+                border: '1px solid rgba(16, 185, 129, 0.2)', 
+                borderRadius: '16px', 
+                padding: '20px 24px', 
+                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px'
+              }}>
+                <div style={{ fontSize: '32px' }}>💰</div>
+                <div>
+                  <span style={{ fontSize: '11px', color: '#64748B', textTransform: 'uppercase', fontWeight: '700', letterSpacing: '0.5px', display: 'block' }}>Cumulative Annual Savings</span>
+                  <span style={{ fontSize: '24px', fontWeight: '800', color: '#818CF8', fontFamily: '"Space Grotesk", sans-serif' }}>
+                    ₹{(filteredDirectory.reduce((acc, curr) => {
+                      const details = getCompanyData(curr.company.toLowerCase());
+                      if (details && details.roiStats) {
+                        const savingsVal = parseFloat(details.roiStats.savings.replace(/[^0-9.]/g, ''));
+                        const isLakh = details.roiStats.savings.includes('Lakh');
+                        const multiplier = isLakh ? 100000 : 10000000;
+                        return acc + (isNaN(savingsVal) ? 0 : savingsVal * multiplier);
+                      }
+                      return acc;
+                    }, 0) / 10000000).toFixed(2)} <span style={{ fontSize: '14px', fontWeight: '500' }}>Cr</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
             {/* Search Filters */}
             <div style={{ 
               display: 'flex', 
@@ -2939,29 +3081,31 @@ export default function CaseStudies() {
 
                       <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '14px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                         <div style={{
-                          background: 'rgba(239, 68, 68, 0.02)',
-                          borderLeft: '3px solid #EF4444',
+                          background: 'linear-gradient(90deg, rgba(239, 68, 68, 0.03) 0%, transparent 100%)',
+                          borderLeft: '4px solid #EF4444',
                           padding: '12px 16px',
-                          borderRadius: '8px'
+                          borderRadius: '8px',
+                          boxShadow: 'inset 5px 0 10px rgba(239, 68, 68, 0.02)'
                         }}>
-                          <span style={{ fontSize: '11px', fontWeight: '800', color: '#EF4444', textTransform: 'uppercase', display: 'block', marginBottom: '4px' }}>
-                            ❌ Legacy Problem
+                          <span style={{ fontSize: '11px', fontWeight: '800', color: '#EF4444', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                            <span>⚠️</span> Legacy Pain Point
                           </span>
-                          <p style={{ fontSize: '13.5px', color: '#CBD5E1', lineHeight: '1.5' }}>
+                          <p style={{ fontSize: '13.5px', color: '#CBD5E1', lineHeight: '1.5', margin: 0 }}>
                             {c.problem}
                           </p>
                         </div>
 
                         <div style={{
-                          background: 'rgba(16, 185, 129, 0.02)',
-                          borderLeft: '3px solid #10B981',
+                          background: 'linear-gradient(90deg, rgba(16, 185, 129, 0.03) 0%, transparent 100%)',
+                          borderLeft: '4px solid #10B981',
                           padding: '12px 16px',
-                          borderRadius: '8px'
+                          borderRadius: '8px',
+                          boxShadow: 'inset 5px 0 10px rgba(16, 185, 129, 0.02)'
                         }}>
-                          <span style={{ fontSize: '11px', fontWeight: '800', color: '#10B981', textTransform: 'uppercase', display: 'block', marginBottom: '4px' }}>
-                            💡 DataTrust V3.0 Cure
+                          <span style={{ fontSize: '11px', fontWeight: '800', color: '#10B981', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                            <span>✨</span> DataTrust V3.0 Cure
                           </span>
-                          <p style={{ fontSize: '13.5px', color: '#CBD5E1', lineHeight: '1.5' }}>
+                          <p style={{ fontSize: '13.5px', color: '#CBD5E1', lineHeight: '1.5', margin: 0 }}>
                             {c.howItHelps}
                           </p>
                         </div>

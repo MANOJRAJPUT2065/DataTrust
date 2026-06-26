@@ -5,6 +5,10 @@ import logoImg from '../assets/DataTrust-Logo.png';
 import NotificationSystemDocs from './NotificationSystemDocs';
 import IntelligenceLayerDocs from './IntelligenceLayerDocs';
 import PipelineEngineDocs from './PipelineEngineDocs';
+import SemanticEngineV2Docs from './SemanticEngineV2Docs';
+import QualityEngineV2Docs from './QualityEngineV2Docs';
+import AuditEngineV2Docs from './AuditEngineV2Docs';
+import DataFlowDocs from './DataFlowDocs';
 
 const architectureLayers = [
   {
@@ -663,6 +667,47 @@ export default function Version3({ onEnterWorkspace, setView }) {
         .nlq-spinner { width: 20px; height: 20px; border: 2px solid rgba(99,102,241,0.2); border-top-color: #6366F1; border-radius: 50%; animation: spin 0.8s linear infinite; flex-shrink: 0; }
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes typing-cursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        
+        /* V3 HLD Dropdown */
+        .nav-dropdown {
+          position: relative;
+          display: inline-block;
+        }
+        .nav-dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #0F172A;
+          min-width: 250px;
+          box-shadow: 0px 8px 24px rgba(0,0,0,0.6);
+          z-index: 1000;
+          border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.1);
+          padding: 8px 0;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          margin-top: 8px;
+        }
+        .nav-dropdown-content a {
+          color: #94A3B8 !important;
+          padding: 10px 16px;
+          text-decoration: none;
+          display: block;
+          font-size: 13px !important;
+          transition: all 0.2s ease;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          text-align: left;
+        }
+        .nav-dropdown-content a:last-child {
+          border-bottom: none;
+        }
+        .nav-dropdown-content a:hover {
+          background-color: #1E293B;
+          color: #00BFA5 !important;
+        }
+        .nav-dropdown:hover .nav-dropdown-content {
+          display: block;
+        }
       `}</style>
 
       {/* ─── NAVIGATION ─────────────────────────────────────────────── */}
@@ -677,6 +722,18 @@ export default function Version3({ onEnterWorkspace, setView }) {
           <li><a href="/?view=how-it-works" target="_blank" rel="noopener noreferrer" style={{ color: '#00BFA5', fontWeight: 'bold' }}>How It Works</a></li>
           <li><a href="/?view=user-journey" target="_blank" rel="noopener noreferrer" style={{ color: '#6366F1', fontWeight: 'bold' }}>User Journey</a></li>
           <li><a href="/?view=architecture-hld" target="_blank" rel="noopener noreferrer" style={{ color: '#A855F7', fontWeight: 'bold' }}>Architecture HLD</a></li>
+          <li className="nav-dropdown">
+            <a href="#" onClick={(e) => e.preventDefault()} style={{ color: '#C084FC', fontWeight: 'bold' }}>V3 HLD Docs 📐</a>
+            <div className="nav-dropdown-content">
+              <a href="/?view=semantic-engine-v2" target="_blank" rel="noopener noreferrer">🧠 Semantic Engine V2 HLD</a>
+              <a href="/?view=quality-engine-v2" target="_blank" rel="noopener noreferrer">✅ Quality Engine V2 HLD</a>
+              <a href="/?view=audit-engine-v2" target="_blank" rel="noopener noreferrer">📋 Audit Engine V2 HLD</a>
+              <a href="/?view=pipeline-engine-v2" target="_blank" rel="noopener noreferrer">⚙️ Pipeline Engine HLD</a>
+              <a href="/?view=intelligence-layer" target="_blank" rel="noopener noreferrer">🔮 AI Intelligence Layer HLD</a>
+              <a href="/?view=notification-system" target="_blank" rel="noopener noreferrer">🔔 Notification System HLD</a>
+              <a href="/?view=data-flow" target="_blank" rel="noopener noreferrer">📊 End-to-End Data Flow</a>
+            </div>
+          </li>
           <li><a href="#pricing" style={{ color: '#E2E8F0' }}>Pricing</a></li>
           <li>
             <button onClick={() => setView('landing')} className="nav-cta border-none cursor-pointer" style={{ background: 'transparent', border: '1px solid #00BFA5', color: '#00BFA5' }}>
@@ -716,9 +773,13 @@ export default function Version3({ onEnterWorkspace, setView }) {
       <div className="v3-subnav" style={{ position: 'sticky', top: '70px', zIndex: 100, background: 'rgba(15, 23, 42, 0.95)', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(255,255,255,0.1)', padding: '0 5%' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: '32px', overflowX: 'auto' }}>
           <button onClick={() => setActiveTab('overview')} style={{ background: 'none', border: 'none', color: activeTab === 'overview' ? '#00BFA5' : '#94A3B8', borderBottom: activeTab === 'overview' ? '2px solid #00BFA5' : '2px solid transparent', padding: '20px 0', fontSize: '15px', fontWeight: '600', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.2s' }}>Overview & Features</button>
+          <button onClick={() => setActiveTab('data-flow')} style={{ background: 'none', border: 'none', color: activeTab === 'data-flow' ? '#00BFA5' : '#94A3B8', borderBottom: activeTab === 'data-flow' ? '2px solid #00BFA5' : '2px solid transparent', padding: '20px 0', fontSize: '15px', fontWeight: '600', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.2s' }}>End-to-End Data Flow</button>
           <button onClick={() => setActiveTab('notification')} style={{ background: 'none', border: 'none', color: activeTab === 'notification' ? '#00BFA5' : '#94A3B8', borderBottom: activeTab === 'notification' ? '2px solid #00BFA5' : '2px solid transparent', padding: '20px 0', fontSize: '15px', fontWeight: '600', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.2s' }}>Notification System HLD/LLD</button>
           <button onClick={() => setActiveTab('intelligence')} style={{ background: 'none', border: 'none', color: activeTab === 'intelligence' ? '#00BFA5' : '#94A3B8', borderBottom: activeTab === 'intelligence' ? '2px solid #00BFA5' : '2px solid transparent', padding: '20px 0', fontSize: '15px', fontWeight: '600', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.2s' }}>AI-First Intelligence Layer</button>
           <button onClick={() => setActiveTab('pipeline')} style={{ background: 'none', border: 'none', color: activeTab === 'pipeline' ? '#00BFA5' : '#94A3B8', borderBottom: activeTab === 'pipeline' ? '2px solid #00BFA5' : '2px solid transparent', padding: '20px 0', fontSize: '15px', fontWeight: '600', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.2s' }}>Pipeline Engine HLD/LLD</button>
+          <button onClick={() => setActiveTab('semantic-v2')} style={{ background: 'none', border: 'none', color: activeTab === 'semantic-v2' ? '#00BFA5' : '#94A3B8', borderBottom: activeTab === 'semantic-v2' ? '2px solid #00BFA5' : '2px solid transparent', padding: '20px 0', fontSize: '15px', fontWeight: '600', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.2s' }}>Semantic Engine V2</button>
+          <button onClick={() => setActiveTab('quality-v2')} style={{ background: 'none', border: 'none', color: activeTab === 'quality-v2' ? '#00BFA5' : '#94A3B8', borderBottom: activeTab === 'quality-v2' ? '2px solid #00BFA5' : '2px solid transparent', padding: '20px 0', fontSize: '15px', fontWeight: '600', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.2s' }}>Quality Engine V2</button>
+          <button onClick={() => setActiveTab('audit-v2')} style={{ background: 'none', border: 'none', color: activeTab === 'audit-v2' ? '#00BFA5' : '#94A3B8', borderBottom: activeTab === 'audit-v2' ? '2px solid #00BFA5' : '2px solid transparent', padding: '20px 0', fontSize: '15px', fontWeight: '600', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.2s' }}>Audit Engine V2</button>
         </div>
       </div>
 
@@ -1101,6 +1162,10 @@ export default function Version3({ onEnterWorkspace, setView }) {
       {activeTab === 'notification' && <NotificationSystemDocs />}
       {activeTab === 'intelligence' && <IntelligenceLayerDocs />}
       {activeTab === 'pipeline' && <PipelineEngineDocs />}
+      {activeTab === 'semantic-v2' && <SemanticEngineV2Docs />}
+      {activeTab === 'quality-v2' && <QualityEngineV2Docs />}
+      {activeTab === 'audit-v2' && <AuditEngineV2Docs />}
+      {activeTab === 'data-flow' && <DataFlowDocs />}
 
       {/* ─── FOOTER ─────────────────────────────────────────────────── */}
       <Footer setView={setView} />

@@ -35,10 +35,59 @@ const hldFlows = [
 export default function NotificationSystemDocs() {
   return (
     <div style={{ padding: '60px 0', background: '#0F172A', color: '#CBD5E1' }}>
-      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 20px' }}>
         <h2 style={{ color: '#fff', fontSize: '32px', marginBottom: '40px' }}>Notification System — Complete HLD + LLD</h2>
         
         <h3 style={{ color: '#00BFA5', fontSize: '24px', marginBottom: '20px' }}>1. HIGH-LEVEL DESIGN (HLD)</h3>
+
+        {/* ASCII HLD Box */}
+        <div style={{ background: '#090D1A', border: '1px solid rgba(0,191,165,0.2)', borderRadius: '12px', padding: '24px', overflowX: 'auto', marginBottom: '40px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+            <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#EF4444' }}></div>
+            <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#F59E0B' }}></div>
+            <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10B981' }}></div>
+            <span style={{ fontSize: '11px', color: '#64748B', fontFamily: 'monospace', marginLeft: '10px' }}>alert_system_hld.ascii</span>
+          </div>
+          <pre style={{ margin: 0, color: '#00BFA5', fontSize: '12px', fontFamily: 'var(--font-mono, monospace)', lineHeight: '1.4' }}>{`┌─────────────────────────────────────────────────────────────────────────────┐
+│                 NOTIFICATION SYSTEM & ALERT ROUTER — HLD                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │  EVENT SOURCES (Triggers)                                             │  │
+│  │  • Quality Engine   • Pipeline Engine   • Approvals   • Audit Engine  │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                      │                                      │
+│                                      ▼                                      │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │  ALERT PROCESSOR & ROUTING ENGINE                                     │  │
+│  │  ┌──────────────────────────────────────────────────────────────────┐ │  │
+│  │  │  1. Severity Classifier (Critical / Warning / Info)              │ │  │
+│  │  ├──────────────────────────────────────────────────────────────────┤ │  │
+│  │  │  2. Dynamic Recipient Resolution (Ownership-based lookup)        │ │  │
+│  │  ├──────────────────────────────────────────────────────────────────┤ │  │
+│  │  │  3. Template Translation Engine (Markdown formatting)            │ │  │
+│  │  ├──────────────────────────────────────────────────────────────────┤ │  │
+│  │  │  4. Delivery Channel Selection (Multi-channel dispatch)          │ │  │
+│  │  └──────────────────────────────────────────────────────────────────┘ │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                      │                                      │
+│                                      ▼                                      │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │  CHANNEL DELIVERY LAYER                                               │  │
+│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐│  │
+│  │  │ Slack        │  │ Teams        │  │ Email        │  │ SMS          ││  │
+│  │  │ (Webhooks)   │  │ (Webhooks)   │  │ (SMTP/Grid)  │  │ (Twilio)     ││  │
+│  │  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘│  │
+│  │  • In-App Live Dashboard Sync (WebSockets)                           │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                      │                                      │
+│                                      ▼                                      │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │  AUDITING & ESCALATION CONTROL                                         │  │
+│  │  • Audit log insertion  • User acknowledgment tracking  • Escalations │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────────┘`}</pre>
+        </div>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '80px', marginBottom: '60px' }}>
           {hldFlows.map((flow, idx) => (
