@@ -180,36 +180,8 @@ const ArchitectureHLD = () => {
         
         {/* Sidebar Navigation */}
           {/* Mobile Nav Toggle */}
-          <button onClick={toggleMobileNav} className="mobile-toggle" style={{
-            position: 'fixed',
-            top: '20px',
-            right: '20px',
-            background: 'rgba(99,102,241,0.2)',
-            border: 'none',
-            borderRadius: '8px',
-            color: '#818CF8',
-            padding: '8px 12px',
-            fontSize: '16px',
-            cursor: 'pointer',
-            zIndex: 1001
-          }}>☰</button>
-          <div
-            className={isMobileNavOpen ? 'sidebar mobile-open' : 'sidebar'}
-            style={{
-              width: '280px',
-              flexShrink: 0,
-              position: isMobileNavOpen ? 'fixed' : 'relative',
-              top: isMobileNavOpen ? '0' : 'auto',
-              left: isMobileNavOpen ? '0' : '-300px',
-              height: '100vh',
-              background: 'rgba(255,255,255,0.02)',
-              padding: '24px',
-              borderRadius: '16px',
-              border: '1px solid rgba(255,255,255,0.05)',
-              transition: 'left 0.3s ease',
-              zIndex: 1000
-            }}
-          >
+          <button onClick={toggleMobileNav} className="mobile-toggle">☰</button>
+          <div className={isMobileNavOpen ? 'sidebar mobile-open' : 'sidebar'}>
             <h3 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px', color: '#94A3B8', marginBottom: '20px', fontWeight: '700' }}>Architecture Layers</h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {navItems.map((item) => (
@@ -1553,6 +1525,54 @@ SDK → API Client → DataTrust → Type-Safe Responses`}
         .scroll-reveal.visible {
           opacity: 1;
           transform: translateY(0);
+        }
+        .mobile-toggle {
+          display: none;
+        }
+        .sidebar {
+          width: 280px;
+          flex-shrink: 0;
+          position: sticky;
+          top: 100px;
+          height: fit-content;
+          background: rgba(255,255,255,0.02);
+          padding: 24px;
+          border-radius: 16px;
+          border: 1px solid rgba(255,255,255,0.05);
+        }
+        @media (max-width: 1024px) {
+          .mobile-toggle {
+            display: block;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(99, 102, 241, 0.8);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 1001;
+          }
+          .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            height: 100vh;
+            width: 280px;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+            transition: left 0.3s ease;
+            border-radius: 0;
+            border: none;
+            border-right: 1px solid rgba(255,255,255,0.08);
+            overflow-y: auto;
+          }
+          .sidebar.mobile-open {
+            left: 0;
+          }
         }
       `}} />
     </div>

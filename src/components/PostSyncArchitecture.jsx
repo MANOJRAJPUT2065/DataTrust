@@ -136,11 +136,14 @@ const MermaidBlock = ({ chart }) => {
 
 const PostSyncArchitecture = () => {
   const [activeSection, setActiveSection] = useState('data-flow');
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const toggleMobileNav = () => setIsMobileNavOpen(!isMobileNavOpen);
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const y = element.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: y, behavior: 'smooth' });
       setActiveSection(id);
     }
   };
@@ -154,7 +157,7 @@ const PostSyncArchitecture = () => {
     { id: 'lld-schema', label: '6. LLD & Database Schema' },
   ];
 
-  return (
+  return (<>
     <div style={{ minHeight: '100vh', background: '#020617', color: '#F8FAFC', fontFamily: '"Inter", sans-serif', paddingTop: '80px', paddingBottom: '100px' }}>
       
       {/* Header */}
@@ -174,35 +177,35 @@ const PostSyncArchitecture = () => {
       <div style={{ display: 'flex', maxWidth: '1400px', margin: '0 auto', padding: '0 40px', gap: '60px' }}>
         
         {/* Sidebar Navigation */}
-        <div style={{ width: '280px', flexShrink: 0, position: 'relative' }}>
-          <div style={{ position: 'sticky', top: '100px', background: 'rgba(255,255,255,0.02)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
-            <h3 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px', color: '#94A3B8', marginBottom: '20px', fontWeight: '700' }}>Sections</h3>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {navItems.map((item) => (
-                <li key={item.id}>
-                  <button
-                    onClick={() => scrollToSection(item.id)}
-                    style={{
-                      width: '100%',
-                      textAlign: 'left',
-                      padding: '10px 16px',
-                      background: activeSection === item.id ? 'rgba(236,72,153,0.1)' : 'transparent',
-                      color: activeSection === item.id ? '#EC4899' : '#CBD5E1',
-                      border: 'none',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: activeSection === item.id ? '600' : '400',
-                      transition: 'all 0.2s ease',
-                      borderLeft: activeSection === item.id ? '3px solid #EC4899' : '3px solid transparent'
-                    }}
-                  >
-                    {item.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* Mobile Nav Toggle */}
+        <button onClick={toggleMobileNav} className="mobile-toggle">☰</button>
+        <div className={isMobileNavOpen ? 'sidebar mobile-open' : 'sidebar'}>
+          <h3 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px', color: '#94A3B8', marginBottom: '20px', fontWeight: '700' }}>Sections</h3>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <button
+                  onClick={() => { scrollToSection(item.id); setIsMobileNavOpen(false); }}
+                  style={{
+                    width: '100%',
+                    textAlign: 'left',
+                    padding: '10px 16px',
+                    background: activeSection === item.id ? 'rgba(236,72,153,0.1)' : 'transparent',
+                    color: activeSection === item.id ? '#EC4899' : '#CBD5E1',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    fontWeight: activeSection === item.id ? '600' : '400',
+                    transition: 'all 0.2s ease',
+                    borderLeft: activeSection === item.id ? '3px solid #EC4899' : '3px solid transparent'
+                  }}
+                >
+                  {item.label}
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Content Area */}
@@ -617,7 +620,57 @@ CREATE TABLE rules (
         </div>
       </div>
     </div>
-  );
+    <style dangerouslySetInnerHTML={{__html: `
+      .mobile-toggle {
+        display: none;
+      }
+      .sidebar {
+        width: 280px;
+        flex-shrink: 0;
+        position: sticky;
+        top: 100px;
+        height: fit-content;
+        background: rgba(255,255,255,0.02);
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.05);
+      }
+      @media (max-width: 1024px) {
+        .mobile-toggle {
+          display: block;
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: rgba(236, 72, 153, 0.8);
+          border: none;
+          border-radius: 8px;
+          color: #fff;
+          padding: 8px 16px;
+          font-size: 18px;
+          cursor: pointer;
+          z-index: 1001;
+        }
+        .sidebar {
+          position: fixed;
+          top: 0;
+          left: -300px;
+          height: 100vh;
+          width: 280px;
+          background: rgba(15, 23, 42, 0.98);
+          backdrop-filter: blur(16px);
+          z-index: 1000;
+          transition: left 0.3s ease;
+          border-radius: 0;
+          border: none;
+          border-right: 1px solid rgba(255,255,255,0.08);
+          overflow-y: auto;
+        }
+        .sidebar.mobile-open {
+          left: 0;
+        }
+      }
+    `}} />
+  </>);
 };
 
 export default PostSyncArchitecture;

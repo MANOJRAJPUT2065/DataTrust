@@ -78,6 +78,9 @@ const architectureLayers = [
 ];
 
 export default function Version3({ onEnterWorkspace, setView }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+
   const [activeTab, setActiveTab] = useState('overview');
   const [activeRoadmapPhase, setActiveRoadmapPhase] = useState(1);
   const [nlqQuery, setNlqQuery] = useState('');
@@ -674,7 +677,9 @@ export default function Version3({ onEnterWorkspace, setView }) {
           display: inline-block;
         }
         .nav-dropdown-content {
-          display: none;
+          display: block;
+          opacity: 0;
+          visibility: hidden;
           position: absolute;
           background-color: #0F172A;
           min-width: 250px;
@@ -687,6 +692,17 @@ export default function Version3({ onEnterWorkspace, setView }) {
           left: 50%;
           transform: translateX(-50%);
           margin-top: 8px;
+          transition: opacity 0.15s ease, visibility 0.15s ease;
+          transition-delay: 0.1s;
+        }
+        .nav-dropdown-content::before {
+          content: '';
+          position: absolute;
+          top: -12px;
+          left: 0;
+          width: 100%;
+          height: 12px;
+          background: transparent;
         }
         .nav-dropdown-content a {
           color: #94A3B8 !important;
@@ -706,34 +722,58 @@ export default function Version3({ onEnterWorkspace, setView }) {
           color: #00BFA5 !important;
         }
         .nav-dropdown:hover .nav-dropdown-content {
-          display: block;
+          opacity: 1;
+          visibility: visible;
+          transition-delay: 0s;
         }
       `}</style>
 
       {/* ─── NAVIGATION ─────────────────────────────────────────────── */}
-      <nav className="marketing-nav" style={{ background: 'rgba(15, 23, 42, 0.9)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-        <div className="logo" onClick={() => setView('landing')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+      <nav className={`marketing-nav ${isMobileMenuOpen ? 'mobile-active' : ''}`} style={{ background: 'rgba(15, 23, 42, 0.9)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <div className="logo" onClick={() => { setView('landing'); setIsMobileMenuOpen(false); }} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
           <img src={logoImg} alt="DataTrust Logo" style={{ height: '64px', filter: 'brightness(0) invert(1)' }} />
         </div>
-        <ul>
+        <button className="hamburger" onClick={toggleMobileMenu} aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul onClick={() => setIsMobileMenuOpen(false)}>
           <li><a href="#ml-concepts" style={{ color: '#E2E8F0' }}>ML & LLM Concepts</a></li>
           <li><a href="#features" style={{ color: '#E2E8F0' }}>All 45+ Features</a></li>
           <li><a href="#roadmap" style={{ color: '#E2E8F0' }}>Roadmap</a></li>
-          <li><a href="/?view=how-it-works" target="_blank" rel="noopener noreferrer" style={{ color: '#00BFA5', fontWeight: 'bold' }}>How It Works</a></li>
-          <li><a href="/?view=user-journey" target="_blank" rel="noopener noreferrer" style={{ color: '#6366F1', fontWeight: 'bold' }}>User Journey</a></li>
-          <li><a href="/?view=architecture-hld" target="_blank" rel="noopener noreferrer" style={{ color: '#A855F7', fontWeight: 'bold' }}>Architecture HLD</a></li>
-          <li className="nav-dropdown">
-            <a href="#" onClick={(e) => e.preventDefault()} style={{ color: '#C084FC', fontWeight: 'bold' }}>V3 HLD Docs 📐</a>
-            <div className="nav-dropdown-content">
-              <a href="/?view=semantic-engine-v2" target="_blank" rel="noopener noreferrer">🧠 Semantic Engine V2 HLD</a>
-              <a href="/?view=quality-engine-v2" target="_blank" rel="noopener noreferrer">✅ Quality Engine V2 HLD</a>
-              <a href="/?view=audit-engine-v2" target="_blank" rel="noopener noreferrer">📋 Audit Engine V2 HLD</a>
-              <a href="/?view=pipeline-engine-v2" target="_blank" rel="noopener noreferrer">⚙️ Pipeline Engine HLD</a>
-              <a href="/?view=intelligence-layer" target="_blank" rel="noopener noreferrer">🔮 AI Intelligence Layer HLD</a>
-              <a href="/?view=notification-system" target="_blank" rel="noopener noreferrer">🔔 Notification System HLD</a>
-              <a href="/?view=data-flow" target="_blank" rel="noopener noreferrer">📊 End-to-End Data Flow</a>
+          
+          {/* Group 1: Technical Deep-Dives & HLDs */}
+          <li className="nav-dropdown" onClick={(e) => e.stopPropagation()}>
+            <a href="#" onClick={(e) => e.preventDefault()} style={{ color: '#00BFA5', fontWeight: 'bold' }}>Technical HLDs 📐</a>
+            <div className="nav-dropdown-content" onClick={() => setIsMobileMenuOpen(false)}>
+              <a href="/?view=architecture-hld" onClick={(e) => { e.preventDefault(); setView('architecture-hld'); }}>📐 Core Architecture HLD</a>
+              <a href="/?view=data-flow" onClick={(e) => { e.preventDefault(); setView('data-flow'); }}>📊 E2E Data Flow Lifecycle</a>
+              <a href="/?view=post-sync-arch" onClick={(e) => { e.preventDefault(); setView('post-sync-arch'); }}>🔄 Post-Sync Lifecycle</a>
+              <a href="/?view=metadata-sync" onClick={(e) => { e.preventDefault(); setView('metadata-sync'); }}>🗄️ Metadata Sync Cache</a>
+              <a href="/?view=redis-sync" onClick={(e) => { e.preventDefault(); setView('redis-sync'); }}>⚡ Redis Pub/Sub Live Sync</a>
+              <a href="/?view=semantic-engine" onClick={(e) => { e.preventDefault(); setView('semantic-engine'); }}>💡 V2 DAX-to-SQL Compiler</a>
+              <a href="/?view=semantic-engine-v2" onClick={(e) => { e.preventDefault(); setView('semantic-engine-v2'); }}>🧠 V3 Semantic Search (pgvector)</a>
+              <a href="/?view=quality-engine-v2" onClick={(e) => { e.preventDefault(); setView('quality-engine-v2'); }}>✅ V3 Quality Engine Anomaly</a>
+              <a href="/?view=audit-engine-v2" onClick={(e) => { e.preventDefault(); setView('audit-engine-v2'); }}>📋 V3 Audit Engine Immutable</a>
+              <a href="/?view=pipeline-engine-v2" onClick={(e) => { e.preventDefault(); setView('pipeline-engine-v2'); }}>⚙️ V3 Pipeline Stage Logs</a>
+              <a href="/?view=intelligence-layer" onClick={(e) => { e.preventDefault(); setView('intelligence-layer'); }}>🔮 V3 AI Inference Layer</a>
+              <a href="/?view=notification-system" onClick={(e) => { e.preventDefault(); setView('notification-system'); }}>🔔 V3 Alert Routing Engine</a>
             </div>
           </li>
+
+          {/* Group 2: Guides & Demos */}
+          <li className="nav-dropdown" onClick={(e) => e.stopPropagation()}>
+            <a href="#" onClick={(e) => e.preventDefault()} style={{ color: '#818CF8', fontWeight: 'bold' }}>Resources & Business 🏢</a>
+            <div className="nav-dropdown-content" onClick={() => setIsMobileMenuOpen(false)}>
+              <a href="/?view=case-studies" onClick={(e) => { e.preventDefault(); setView('case-studies'); }}>🏢 Enterprise Case Studies</a>
+              <a href="/?view=case-studies-hld" onClick={(e) => { e.preventDefault(); setView('case-studies-hld'); }}>📐 Case Studies Integration HLD</a>
+              <a href="/?view=investor-pitch" onClick={(e) => { e.preventDefault(); setView('investor-pitch'); }}>🚀 Investor Pitch Deck</a>
+              <a href="/?view=how-it-works" onClick={(e) => { e.preventDefault(); setView('how-it-works'); }}>📖 How It Works Guide</a>
+              <a href="/?view=user-journey" onClick={(e) => { e.preventDefault(); setView('user-journey'); }}>👤 User Journey Timeline</a>
+            </div>
+          </li>
+
           <li><a href="#pricing" style={{ color: '#E2E8F0' }}>Pricing</a></li>
           <li>
             <button onClick={() => setView('landing')} className="nav-cta border-none cursor-pointer" style={{ background: 'transparent', border: '1px solid #00BFA5', color: '#00BFA5' }}>

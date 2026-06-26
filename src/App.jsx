@@ -21,6 +21,7 @@ import DataFlowDocs from './components/DataFlowDocs';
 import PipelineEngineDocs from './components/PipelineEngineDocs';
 import IntelligenceLayerDocs from './components/IntelligenceLayerDocs';
 import NotificationSystemDocs from './components/NotificationSystemDocs';
+import DocsLayout from './components/DocsLayout';
 
 
 
@@ -327,48 +328,46 @@ export default function App() {
     addToast('warning', 'Configuration Rollback Complete', `Governance rules reverted to ${selectedVersionCompare}.`);
   };
 
+  const docViews = [
+    'architecture-hld', 'metadata-sync', 'semantic-engine', 'post-sync-arch', 'redis-sync',
+    'case-studies', 'case-studies-hld', 'investor-pitch', 'semantic-engine-v2', 'quality-engine-v2',
+    'audit-engine-v2', 'data-flow', 'pipeline-engine-v2', 'intelligence-layer', 'notification-system',
+    'how-it-works', 'user-journey'
+  ];
+
+  const isDocView = docViews.includes(view);
+  const handleEnterWorkspace = () => {
+    window.open(window.location.pathname + '?view=workspace', '_blank');
+  };
+
   return (
     <div className="app-root">
       {view === 'landing' ? (
-        <LandingPage onEnterWorkspace={() => window.open(window.location.pathname + '?view=workspace', '_blank')} setView={setView} />
+        <LandingPage onEnterWorkspace={handleEnterWorkspace} setView={setView} />
       ) : view === 'v3' ? (
-        <Version3 onEnterWorkspace={() => window.open(window.location.pathname + '?view=workspace', '_blank')} setView={setView} />
-      ) : view === 'how-it-works' ? (
-        <HowItWorks />
-      ) : view === 'user-journey' ? (
-        <UserJourney />
-      ) : view === 'architecture-hld' ? (
-        <ArchitectureHLD />
-      ) : view === 'metadata-sync' ? (
-        <MetadataSyncHLD />
-      ) : view === 'semantic-engine' ? (
-        <SemanticEngineHLD />
-      ) : view === 'post-sync-arch' ? (
-        <PostSyncArchitecture />
-      ) : view === 'redis-sync' ? (
-        <RedisSyncHLD />
-      ) : view === 'case-studies' ? (
-        <CaseStudies />
-      ) : view === 'case-studies-hld' ? (
-        <CaseStudiesHLD />
-      ) : view === 'investor-pitch' ? (
-        <InvestorPitch />
+        <Version3 onEnterWorkspace={handleEnterWorkspace} setView={setView} />
+      ) : isDocView ? (
+        <DocsLayout currentView={view} setView={setView} onEnterWorkspace={handleEnterWorkspace}>
+          {view === 'architecture-hld' && <ArchitectureHLD />}
+          {view === 'metadata-sync' && <MetadataSyncHLD />}
+          {view === 'semantic-engine' && <SemanticEngineHLD />}
+          {view === 'post-sync-arch' && <PostSyncArchitecture />}
+          {view === 'redis-sync' && <RedisSyncHLD />}
+          {view === 'case-studies' && <CaseStudies />}
+          {view === 'case-studies-hld' && <CaseStudiesHLD />}
+          {view === 'investor-pitch' && <InvestorPitch />}
+          {view === 'semantic-engine-v2' && <SemanticEngineV2Docs />}
+          {view === 'quality-engine-v2' && <QualityEngineV2Docs />}
+          {view === 'audit-engine-v2' && <AuditEngineV2Docs />}
+          {view === 'data-flow' && <DataFlowDocs />}
+          {view === 'pipeline-engine-v2' && <PipelineEngineDocs />}
+          {view === 'intelligence-layer' && <IntelligenceLayerDocs />}
+          {view === 'notification-system' && <NotificationSystemDocs />}
+          {view === 'how-it-works' && <HowItWorks />}
+          {view === 'user-journey' && <UserJourney />}
+        </DocsLayout>
       ) : view === 'version3' ? (
         <Version3 />
-      ) : view === 'semantic-engine-v2' ? (
-        <SemanticEngineV2Docs />
-      ) : view === 'quality-engine-v2' ? (
-        <QualityEngineV2Docs />
-      ) : view === 'audit-engine-v2' ? (
-        <AuditEngineV2Docs />
-      ) : view === 'data-flow' ? (
-        <DataFlowDocs />
-      ) : view === 'pipeline-engine-v2' ? (
-        <PipelineEngineDocs />
-      ) : view === 'intelligence-layer' ? (
-        <IntelligenceLayerDocs />
-      ) : view === 'notification-system' ? (
-        <NotificationSystemDocs />
       ) : view === 'privacy' ? (
         <PrivacyPolicy setView={setView} />
       ) : view === 'terms' ? (
