@@ -114,6 +114,8 @@ const CodeBlock = ({ title, code, dataFlow }) => {
 
 const ArchitectureHLD = () => {
   const [activeSection, setActiveSection] = useState('category-1');
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const toggleMobileNav = () => setIsMobileNavOpen(!isMobileNavOpen);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -157,7 +159,7 @@ const ArchitectureHLD = () => {
     { id: 'category-9', label: '9. Ecosystem & APIs' },
   ];
 
-  return (
+  return (<>
     <div style={{ minHeight: '100vh', background: '#020617', color: '#F8FAFC', fontFamily: '"Inter", sans-serif', paddingTop: '80px', paddingBottom: '100px' }}>
       
       {/* Header */}
@@ -177,14 +179,43 @@ const ArchitectureHLD = () => {
       <div style={{ display: 'flex', maxWidth: '1400px', margin: '0 auto', padding: '0 40px', gap: '60px' }}>
         
         {/* Sidebar Navigation */}
-        <div style={{ width: '280px', flexShrink: 0, position: 'relative' }}>
-          <div style={{ position: 'sticky', top: '100px', background: 'rgba(255,255,255,0.02)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
+          {/* Mobile Nav Toggle */}
+          <button onClick={toggleMobileNav} className="mobile-toggle" style={{
+            position: 'fixed',
+            top: '20px',
+            right: '20px',
+            background: 'rgba(99,102,241,0.2)',
+            border: 'none',
+            borderRadius: '8px',
+            color: '#818CF8',
+            padding: '8px 12px',
+            fontSize: '16px',
+            cursor: 'pointer',
+            zIndex: 1001
+          }}>☰</button>
+          <div
+            className={isMobileNavOpen ? 'sidebar mobile-open' : 'sidebar'}
+            style={{
+              width: '280px',
+              flexShrink: 0,
+              position: isMobileNavOpen ? 'fixed' : 'relative',
+              top: isMobileNavOpen ? '0' : 'auto',
+              left: isMobileNavOpen ? '0' : '-300px',
+              height: '100vh',
+              background: 'rgba(255,255,255,0.02)',
+              padding: '24px',
+              borderRadius: '16px',
+              border: '1px solid rgba(255,255,255,0.05)',
+              transition: 'left 0.3s ease',
+              zIndex: 1000
+            }}
+          >
             <h3 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px', color: '#94A3B8', marginBottom: '20px', fontWeight: '700' }}>Architecture Layers</h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {navItems.map((item) => (
                 <li key={item.id}>
                   <button
-                    onClick={() => scrollToSection(item.id)}
+                    onClick={() => { scrollToSection(item.id); setIsMobileNavOpen(false); }}
                     style={{
                       width: '100%',
                       textAlign: 'left',
@@ -204,9 +235,8 @@ const ArchitectureHLD = () => {
                   </button>
                 </li>
               ))}
-            </ul>
+              </ul>
           </div>
-        </div>
 
         {/* Content Area */}
         <div style={{ flexGrow: 1, minWidth: 0 }}>
@@ -924,6 +954,68 @@ User Builds Dashboard → Live Data → Auto-Validate → Publish`}
 Impact Analysis → Show Dependencies → Risk Assessment → Decision
 Permissions → Column/Row Level → Data Access → Secure Data`}
             />
+
+            <div style={{ marginTop: '24px', background: 'rgba(15, 23, 42, 0.4)', padding: '24px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#E2E8F0', marginBottom: '16px' }}>Feature Breakdown &amp; Access Control</h3>
+              <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px', color: '#94A3B8' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                      <th style={{ padding: '12px 8px', color: '#EC4899', fontWeight: '600' }}>Feature</th>
+                      <th style={{ padding: '12px 8px', color: '#EC4899', fontWeight: '600' }}>Status</th>
+                      <th style={{ padding: '12px 8px', color: '#EC4899', fontWeight: '600' }}>Tech Stack</th>
+                      <th style={{ padding: '12px 8px', color: '#EC4899', fontWeight: '600' }}>Key Metrics</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Team Workspaces</td>
+                      <td style={{ padding: '12px 8px', color: '#10B981' }}>✅ Complete</td>
+                      <td style={{ padding: '12px 8px' }}>PostgreSQL, FastAPI</td>
+                      <td style={{ padding: '12px 8px' }}>Isolated dept environments</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Fine-Grained Permissions</td>
+                      <td style={{ padding: '12px 8px', color: '#10B981' }}>✅ Complete</td>
+                      <td style={{ padding: '12px 8px' }}>RBAC, PostgreSQL RLS</td>
+                      <td style={{ padding: '12px 8px' }}>Column + Row level security</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Approval Workflows V2</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>FastAPI, Celery</td>
+                      <td style={{ padding: '12px 8px' }}>Multi-approver, SLA 5 days</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Impact Analysis V2</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>Graph DB, NetworkX</td>
+                      <td style={{ padding: '12px 8px' }}>Dependency graph + risk score</td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Data Catalog V2</td>
+                      <td style={{ padding: '12px 8px', color: '#3B82F6' }}>Planned</td>
+                      <td style={{ padding: '12px 8px' }}>pgvector, Elasticsearch</td>
+                      <td style={{ padding: '12px 8px' }}>Full metadata discovery</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#EC4899', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>RBAC Roles</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>Viewer → Editor → Admin → Owner — hierarchical with workspace isolation</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#EC4899', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>Approval Chain</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>Raj → Priya → Diana — configurable multi-approver chains with SLA enforcement</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#EC4899', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>Impact Graph</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>Change Revenue → see all 3 downstream reports + 2 teams affected instantly</div>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* Category 7 */}
@@ -972,6 +1064,72 @@ Permissions → Column/Row Level → Data Access → Secure Data`}
 └─────────────────────────────────────────────────────────────────────────────┘`}
               dataFlow={`Platform Activity → Automated Audit Trail → Compliance Ready`}
             />
+
+            <div style={{ marginTop: '24px', background: 'rgba(15, 23, 42, 0.4)', padding: '24px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#E2E8F0', marginBottom: '16px' }}>Compliance Standards &amp; Feature Status</h3>
+              <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px', color: '#94A3B8' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                      <th style={{ padding: '12px 8px', color: '#A855F7', fontWeight: '600' }}>Feature</th>
+                      <th style={{ padding: '12px 8px', color: '#A855F7', fontWeight: '600' }}>Status</th>
+                      <th style={{ padding: '12px 8px', color: '#A855F7', fontWeight: '600' }}>Tech Stack</th>
+                      <th style={{ padding: '12px 8px', color: '#A855F7', fontWeight: '600' }}>Key Metrics</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Immutable Audit Log</td>
+                      <td style={{ padding: '12px 8px', color: '#10B981' }}>✅ Complete</td>
+                      <td style={{ padding: '12px 8px' }}>PostgreSQL, TimescaleDB</td>
+                      <td style={{ padding: '12px 8px' }}>Every action logged</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Pre-Built Compliance Reports</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>Jinja2, FastAPI, PDF</td>
+                      <td style={{ padding: '12px 8px' }}>GDPR/SOC2/SOX/HIPAA packs</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Data Masking (PII)</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>PostgreSQL RLS, Custom</td>
+                      <td style={{ padding: '12px 8px' }}>Name, email, phone masking</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>One-Second Audit Query</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>TimescaleDB, Redis</td>
+                      <td style={{ padding: '12px 8px' }}>&lt; 1 sec on 100M+ events</td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Data Retention Policies</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>Celery, PostgreSQL</td>
+                      <td style={{ padding: '12px 8px' }}>7yr audit, 10yr metrics</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
+                  <div style={{ color: '#A855F7', fontWeight: '700', fontSize: '24px', marginBottom: '4px' }}>15</div>
+                  <div style={{ color: '#94A3B8', fontSize: '13px' }}>GDPR Pre-built Reports</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
+                  <div style={{ color: '#A855F7', fontWeight: '700', fontSize: '24px', marginBottom: '4px' }}>20</div>
+                  <div style={{ color: '#94A3B8', fontSize: '13px' }}>SOC2 Pre-built Reports</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
+                  <div style={{ color: '#A855F7', fontWeight: '700', fontSize: '24px', marginBottom: '4px' }}>12</div>
+                  <div style={{ color: '#94A3B8', fontSize: '13px' }}>SOX Pre-built Reports</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
+                  <div style={{ color: '#A855F7', fontWeight: '700', fontSize: '24px', marginBottom: '4px' }}>18</div>
+                  <div style={{ color: '#94A3B8', fontSize: '13px' }}>HIPAA Pre-built Reports</div>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* Category 8 */}
@@ -1046,6 +1204,72 @@ Event → Kafka → Multiple Consumers → Parallel Processing
 Load → HPA → Auto-Scale → New Pods → Load Balancer
 Partition → Query Router → Relevant Partition → Faster Query`}
             />
+
+            <div style={{ marginTop: '24px', background: 'rgba(15, 23, 42, 0.4)', padding: '24px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#E2E8F0', marginBottom: '16px' }}>Infrastructure &amp; Scale Breakdown</h3>
+              <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px', color: '#94A3B8' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                      <th style={{ padding: '12px 8px', color: '#38BDF8', fontWeight: '600' }}>Component</th>
+                      <th style={{ padding: '12px 8px', color: '#38BDF8', fontWeight: '600' }}>Status</th>
+                      <th style={{ padding: '12px 8px', color: '#38BDF8', fontWeight: '600' }}>Tech Stack</th>
+                      <th style={{ padding: '12px 8px', color: '#38BDF8', fontWeight: '600' }}>Target SLA</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Redis Semantic Cache</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>Redis, Python</td>
+                      <td style={{ padding: '12px 8px' }}>&lt; 50ms cached, 80% hit rate</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Kafka Event Bus</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>Apache Kafka, aiokafka</td>
+                      <td style={{ padding: '12px 8px' }}>Async decoupled processing</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Kubernetes + Helm</td>
+                      <td style={{ padding: '12px 8px', color: '#3B82F6' }}>Planned</td>
+                      <td style={{ padding: '12px 8px' }}>K8s, Helm, Docker</td>
+                      <td style={{ padding: '12px 8px' }}>Zero-downtime rolling deploys</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Auto-Scaling HPA</td>
+                      <td style={{ padding: '12px 8px', color: '#3B82F6' }}>Planned</td>
+                      <td style={{ padding: '12px 8px' }}>K8s HPA, Prometheus</td>
+                      <td style={{ padding: '12px 8px' }}>1–20 replicas, CPU &lt; 70%</td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Data Partitioning (1B+ rows)</td>
+                      <td style={{ padding: '12px 8px', color: '#3B82F6' }}>Planned</td>
+                      <td style={{ padding: '12px 8px' }}>TimescaleDB, Snowflake</td>
+                      <td style={{ padding: '12px 8px' }}>&lt; 5 sec on 1B+ rows</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
+                  <div style={{ color: '#38BDF8', fontWeight: '700', fontSize: '22px', marginBottom: '4px' }}>50ms</div>
+                  <div style={{ color: '#94A3B8', fontSize: '13px' }}>Redis Cache Response</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
+                  <div style={{ color: '#38BDF8', fontWeight: '700', fontSize: '22px', marginBottom: '4px' }}>80%+</div>
+                  <div style={{ color: '#94A3B8', fontSize: '13px' }}>Cache Hit Rate</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
+                  <div style={{ color: '#38BDF8', fontWeight: '700', fontSize: '22px', marginBottom: '4px' }}>1B+</div>
+                  <div style={{ color: '#94A3B8', fontSize: '13px' }}>Rows Supported</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
+                  <div style={{ color: '#38BDF8', fontWeight: '700', fontSize: '22px', marginBottom: '4px' }}>20x</div>
+                  <div style={{ color: '#94A3B8', fontSize: '13px' }}>Auto-Scale Replicas</div>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* Category 9 */}
@@ -1124,6 +1348,68 @@ Custom Plugin → Plugin System → New Feature → Marketplace
 CI/CD Pipeline → GitHub Action → Deploy Semantic Model → Live
 SDK → API Client → DataTrust → Type-Safe Responses`}
             />
+
+            <div style={{ marginTop: '24px', background: 'rgba(15, 23, 42, 0.4)', padding: '24px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#E2E8F0', marginBottom: '16px' }}>API &amp; Ecosystem Breakdown</h3>
+              <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px', color: '#94A3B8' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                      <th style={{ padding: '12px 8px', color: '#F59E0B', fontWeight: '600' }}>Integration</th>
+                      <th style={{ padding: '12px 8px', color: '#F59E0B', fontWeight: '600' }}>Status</th>
+                      <th style={{ padding: '12px 8px', color: '#F59E0B', fontWeight: '600' }}>Tech Stack</th>
+                      <th style={{ padding: '12px 8px', color: '#F59E0B', fontWeight: '600' }}>Key Detail</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Open REST API V3</td>
+                      <td style={{ padding: '12px 8px', color: '#10B981' }}>✅ Complete</td>
+                      <td style={{ padding: '12px 8px' }}>FastAPI, Swagger UI</td>
+                      <td style={{ padding: '12px 8px' }}>50+ endpoints, versioned</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Webhooks</td>
+                      <td style={{ padding: '12px 8px', color: '#F59E0B' }}>In Progress</td>
+                      <td style={{ padding: '12px 8px' }}>FastAPI, Celery</td>
+                      <td style={{ padding: '12px 8px' }}>Real-time event notifications</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Plugin System</td>
+                      <td style={{ padding: '12px 8px', color: '#3B82F6' }}>Planned</td>
+                      <td style={{ padding: '12px 8px' }}>Python Plugin API</td>
+                      <td style={{ padding: '12px 8px' }}>Custom connectors &amp; rules</td>
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>Python / JS / Java SDKs</td>
+                      <td style={{ padding: '12px 8px', color: '#3B82F6' }}>Planned</td>
+                      <td style={{ padding: '12px 8px' }}>OpenAPI codegen</td>
+                      <td style={{ padding: '12px 8px' }}>pip / npm / mvn packages</td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '12px 8px', fontWeight: '600', color: '#E2E8F0' }}>GitHub Actions / GitLab CI</td>
+                      <td style={{ padding: '12px 8px', color: '#3B82F6' }}>Planned</td>
+                      <td style={{ padding: '12px 8px' }}>YAML, GitHub Actions</td>
+                      <td style={{ padding: '12px 8px' }}>CI/CD semantic model deploy</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#F59E0B', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>Auth Methods</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>API Keys + JWT Bearer tokens with per-key rate limiting (1000 req/min)</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#F59E0B', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>API Versioning</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>/api/v1/, /api/v2/, /api/v3/ — backward-compatible with deprecation warnings</div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ color: '#F59E0B', fontWeight: '600', fontSize: '14px', marginBottom: '4px' }}>Webhook Retry</div>
+                  <div style={{ fontSize: '13px', color: '#94A3B8' }}>3 retries with exponential backoff — delivery status visible in dashboard</div>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* Category 10 */}
@@ -1270,7 +1556,7 @@ SDK → API Client → DataTrust → Type-Safe Responses`}
         }
       `}} />
     </div>
-  );
+  </>);
 };
 
 export default ArchitectureHLD;
