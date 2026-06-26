@@ -22,6 +22,7 @@ import PipelineEngineDocs from './components/PipelineEngineDocs';
 import IntelligenceLayerDocs from './components/IntelligenceLayerDocs';
 import NotificationSystemDocs from './components/NotificationSystemDocs';
 import DocsLayout from './components/DocsLayout';
+import ExcelAddinDocs from './components/ExcelAddinDocs';
 
 
 
@@ -332,7 +333,7 @@ export default function App() {
     'architecture-hld', 'metadata-sync', 'semantic-engine', 'post-sync-arch', 'redis-sync',
     'case-studies', 'case-studies-hld', 'investor-pitch', 'semantic-engine-v2', 'quality-engine-v2',
     'audit-engine-v2', 'data-flow', 'pipeline-engine-v2', 'intelligence-layer', 'notification-system',
-    'how-it-works', 'user-journey'
+    'how-it-works', 'user-journey', 'excel-addin-docs'
   ];
 
   const isDocView = docViews.includes(view);
@@ -365,6 +366,7 @@ export default function App() {
           {view === 'notification-system' && <NotificationSystemDocs />}
           {view === 'how-it-works' && <HowItWorks />}
           {view === 'user-journey' && <UserJourney />}
+          {view === 'excel-addin-docs' && <ExcelAddinDocs />}
         </DocsLayout>
       ) : view === 'version3' ? (
         <Version3 />

@@ -7,7 +7,8 @@ const docsNav = [
     items: [
       { id: 'architecture-hld', label: '📐 Technical Architecture HLD', desc: 'Core platform architecture blueprint & data flow diagrams' },
       { id: 'data-flow', label: '📊 End-to-End Data Lifecycle Flow', desc: 'Step-by-step route of data from Snowflake into Excel' },
-      { id: 'post-sync-arch', label: '🔄 Post-Sync Lifecycle Engine', desc: 'Event-driven actions taking place after database discovery' }
+      { id: 'post-sync-arch', label: '🔄 Post-Sync Lifecycle Engine', desc: 'Event-driven actions taking place after database discovery' },
+      { id: 'excel-addin-docs', label: '🔌 Excel Add-in Connect Guide', desc: 'Sideloading manifest, Trust Center settings & local SSL trust' }
     ]
   },
   {

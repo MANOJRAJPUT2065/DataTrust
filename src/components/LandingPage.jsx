@@ -797,6 +797,7 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
               <a href="/?view=investor-pitch" onClick={(e) => { e.preventDefault(); setView('investor-pitch'); }}>🚀 Investor Pitch Deck</a>
               <a href="/?view=how-it-works" onClick={(e) => { e.preventDefault(); setView('how-it-works'); }}>📖 How It Works Guide</a>
               <a href="/?view=user-journey" onClick={(e) => { e.preventDefault(); setView('user-journey'); }}>👤 User Journey Timeline</a>
+              <a href="/?view=excel-addin-docs" onClick={(e) => { e.preventDefault(); setView('excel-addin-docs'); }}>🔌 Excel Add-in Connect Guide</a>
             </div>
           </li>
 
