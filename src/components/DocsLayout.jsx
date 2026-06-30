@@ -27,7 +27,8 @@ const docsNav = [
       { id: 'audit-engine-v2', label: '📋 Audit Engine V3 HLD', desc: 'Immutable change tracking & single-second audit timeline query' },
       { id: 'pipeline-engine-v2', label: '⚙️ Pipeline Engine V3 HLD', desc: '5-stage execution pipelines and live progress logging' },
       { id: 'intelligence-layer', label: '🔮 AI Predictive Rule Inference', desc: 'Self-learning governance rules and metadata curation' },
-      { id: 'notification-system', label: '🔔 Notification Alert Routing', desc: 'Slack/Teams webhooks and automated owner escalations' }
+      { id: 'notification-system', label: '🔔 Notification Alert Routing', desc: 'Slack/Teams webhooks and automated owner escalations' },
+      { id: 'model-training', label: '⚙️ AI Model Training HLD', desc: 'Tuning requirements, LoRA/QLoRA adapter matrix, MLOps flow' }
     ]
   },
   {
@@ -37,7 +38,14 @@ const docsNav = [
       { id: 'case-studies-hld', label: '📐 Case Studies Integration HLD', desc: 'Visual multi-system integration architecture maps' },
       { id: 'investor-pitch', label: '🚀 Investor Pitch Deck', desc: 'DataTrust vision, slide deck, problem & ROI overview' },
       { id: 'how-it-works', label: '📖 Platform How It Works Guide', desc: 'Step-by-step feature breakdown for operations' },
-      { id: 'user-journey', label: '👤 User Timeline Journey', desc: 'Chronological timeline of system interactions' }
+      { id: 'user-journey', label: '👤 User Timeline Journey', desc: 'Chronological timeline of system interactions' },
+      { id: 'testing-guide', label: '🧪 Platform Testing Guide', desc: 'Verification steps for Semantic, Pipelines & Quality engines' }
+    ]
+  },
+  {
+    group: "5. NVIDIA Integrated AI Models",
+    items: [
+      { id: 'nvidia-models', label: '🟢 NVIDIA NIM Model Hub', desc: 'Integrated Nvidia AI API keys, code recipes & OCR/TTS models' }
     ]
   }
 ];
@@ -55,8 +63,8 @@ export default function DocsLayout({ currentView, setView, onEnterWorkspace, chi
 
   // Filter items based on search term
   const filteredNav = docsNav.map(group => {
-    const items = group.items.filter(item => 
-      item.label.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    const items = group.items.filter(item =>
+      item.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.desc.toLowerCase().includes(searchTerm.toLowerCase())
     );
     return { ...group, items };
@@ -64,7 +72,7 @@ export default function DocsLayout({ currentView, setView, onEnterWorkspace, chi
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: '#020617', color: '#F8FAFC', fontFamily: '"Inter", sans-serif', overflow: 'hidden' }}>
-      
+
       {/* ─── STICKY HEADER ────────────────────────────────────────────── */}
       <header style={{
         position: 'sticky', top: 0, zIndex: 1000,
@@ -73,8 +81,8 @@ export default function DocsLayout({ currentView, setView, onEnterWorkspace, chi
         borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <button 
-            onClick={() => setIsMobileNavOpen(!isMobileNavOpen)} 
+          <button
+            onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
             style={{ display: 'none', background: 'transparent', border: 'none', color: '#818CF8', fontSize: '24px', cursor: 'pointer' }}
             className="docs-mobile-hamburger"
           >
@@ -88,9 +96,9 @@ export default function DocsLayout({ currentView, setView, onEnterWorkspace, chi
 
         {/* Global Docs Search */}
         <div style={{ position: 'relative', width: '380px' }} className="docs-search-container">
-          <input 
-            type="text" 
-            placeholder="Search documentation, HLDs, case studies..." 
+          <input
+            type="text"
+            placeholder="Search documentation, HLDs, case studies..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
@@ -106,7 +114,7 @@ export default function DocsLayout({ currentView, setView, onEnterWorkspace, chi
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <button 
+          <button
             onClick={() => setView('landing')}
             style={{ background: 'transparent', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#CBD5E1', padding: '8px 18px', borderRadius: '8px', fontSize: '13px', cursor: 'pointer', transition: 'all 0.2s', fontWeight: '600' }}
             onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.05)'}
@@ -114,7 +122,7 @@ export default function DocsLayout({ currentView, setView, onEnterWorkspace, chi
           >
             ← Back to Home
           </button>
-          <button 
+          <button
             onClick={onEnterWorkspace}
             style={{ background: '#00BFA5', border: 'none', color: '#090F16', padding: '8px 18px', borderRadius: '8px', fontSize: '13px', cursor: 'pointer', transition: 'all 0.2s', fontWeight: '700', boxShadow: '0 4px 14px rgba(0, 191, 165, 0.2)' }}
             onMouseOver={(e) => e.target.style.background = '#00E676'}
@@ -127,9 +135,9 @@ export default function DocsLayout({ currentView, setView, onEnterWorkspace, chi
 
       {/* ─── MAIN DOCUMENTATION BODY ──────────────────────────────────── */}
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        
+
         {/* LEFT STICKY SIDEBAR */}
-        <aside 
+        <aside
           style={{
             width: '320px', background: '#090e17', borderRight: '1px solid rgba(255, 255, 255, 0.08)',
             padding: '24px 16px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '24px',
@@ -182,7 +190,7 @@ export default function DocsLayout({ currentView, setView, onEnterWorkspace, chi
         </aside>
 
         {/* CONTENT RENDERER */}
-        <main 
+        <main
           id="docs-main-content"
           style={{
             flex: 1, padding: '40px 60px', overflowY: 'auto', background: '#020617',

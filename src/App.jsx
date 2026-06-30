@@ -23,6 +23,11 @@ import IntelligenceLayerDocs from './components/IntelligenceLayerDocs';
 import NotificationSystemDocs from './components/NotificationSystemDocs';
 import DocsLayout from './components/DocsLayout';
 import ExcelAddinDocs from './components/ExcelAddinDocs';
+import TestingGuideDocs from './components/TestingGuideDocs';
+import ModelTrainingDocs from './components/ModelTrainingDocs';
+import NvidiaModelsDocs from './components/NvidiaModelsDocs';
+import AutoDocDocs from './components/AutoDocDocs';
+import SemanticSearchDocs from './components/SemanticSearchDocs';
 
 
 
@@ -43,9 +48,9 @@ export default function App() {
     window.history.replaceState({}, '', newUrl);
   }, [view]);
 
-  
+
   const [activeTab, setActiveTab] = useState('builder');
-  
+
   // Toast Notifications State
   const [toasts, setToasts] = useState([
     { id: 1, type: 'warning', title: 'Latency Warning', message: 'Sales reporting pipeline approaching 5 min SLA threshold.' }
@@ -66,13 +71,13 @@ export default function App() {
   const [newRuleCol, setNewRuleCol] = useState('sales_amount');
   const [newRuleCond, setNewRuleCond] = useState('is_positive');
   const [newRuleVal, setNewRuleVal] = useState('');
-  
+
   const [isValidating, setIsValidating] = useState(false);
   const [validationRunLog, setValidationRunLog] = useState([]);
   const [validationRunComplete, setValidationRunComplete] = useState(false);
-  
+
   const [simulateAnomaly, setSimulateAnomaly] = useState(false);
-  
+
   // Mock spreadsheet data
   const [excelData, setExcelData] = useState([
     { id: 1, region: 'North', revenue: '₹4.2 Cr', units: '8,400', status: '✓ OK', rowClass: 'ok' },
@@ -166,7 +171,7 @@ export default function App() {
         index++;
       } else {
         clearInterval(interval);
-        
+
         // Finalize validation run result
         if (simulateAnomaly) {
           setValidationRunLog(prev => [
@@ -187,7 +192,7 @@ export default function App() {
           setSystemAlertLevel('ok');
           addToast('success', 'Pipeline OK', 'All semantic layer checks completed successfully.');
         }
-        
+
         setIsValidating(false);
         setValidationRunComplete(true);
       }
@@ -200,7 +205,7 @@ export default function App() {
     setTimeout(() => {
       const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       setLastRefreshedExcel(time);
-      
+
       if (systemAlertLevel === 'error') {
         setExcelData([
           { id: 1, region: 'North', revenue: '₹4.2 Cr', units: '8,400', status: '✓ OK', rowClass: 'ok' },
@@ -266,7 +271,7 @@ export default function App() {
   const handleRunDependencies = () => {
     setDependencyRunStatus('running');
     addToast('info', 'Executing Dependency DAG', 'Triggering Sales Ingestion Pipeline...');
-    
+
     setTimeout(() => {
       if (allowRunOnUpstreamFail) {
         setDependencyRunStatus('success');
@@ -333,7 +338,8 @@ export default function App() {
     'architecture-hld', 'metadata-sync', 'semantic-engine', 'post-sync-arch', 'redis-sync',
     'case-studies', 'case-studies-hld', 'investor-pitch', 'semantic-engine-v2', 'quality-engine-v2',
     'audit-engine-v2', 'data-flow', 'pipeline-engine-v2', 'intelligence-layer', 'notification-system',
-    'how-it-works', 'user-journey', 'excel-addin-docs'
+    'how-it-works', 'user-journey', 'excel-addin-docs', 'testing-guide', 'model-training', 'nvidia-models',
+    'autodoc-hld', 'semantic-search-hld', 'governance-framework', 'security-compliance'
   ];
 
   const isDocView = docViews.includes(view);
@@ -367,6 +373,11 @@ export default function App() {
           {view === 'how-it-works' && <HowItWorks />}
           {view === 'user-journey' && <UserJourney />}
           {view === 'excel-addin-docs' && <ExcelAddinDocs />}
+          {view === 'testing-guide' && <TestingGuideDocs />}
+          {view === 'model-training' && <ModelTrainingDocs />}
+          {view === 'nvidia-models' && <NvidiaModelsDocs />}
+          {view === 'autodoc-hld' && <AutoDocDocs />}
+          {view === 'semantic-search-hld' && <SemanticSearchDocs />}
         </DocsLayout>
       ) : view === 'version3' ? (
         <Version3 />
@@ -375,12 +386,12 @@ export default function App() {
       ) : view === 'terms' ? (
         <TermsOfService setView={setView} />
       ) : (
-        <Workspace 
+        <Workspace
           setView={setView}
           activeTab={activeTab} setActiveTab={setActiveTab}
           toasts={toasts} setToasts={setToasts} removeToast={removeToast} addToast={addToast}
           systemAlertLevel={systemAlertLevel} setSystemAlertLevel={setSystemAlertLevel}
-          
+
           builderStep={builderStep} setBuilderStep={setBuilderStep}
           dbSource={dbSource} setDbSource={setDbSource}
           dbTable={dbTable} setDbTable={setDbTable}

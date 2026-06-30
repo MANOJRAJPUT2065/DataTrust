@@ -28,6 +28,12 @@ export default function ExcelAddinDocs() {
       title: "Sideload & Launch Add-in",
       desc: "Insert the add-in from My Add-ins and click the Ribbon button to open the live sidebar.",
       badge: "Run Add-in"
+    },
+    {
+      num: 5,
+      title: "Load Dataset & Test NLQ",
+      desc: "Select tables in DataTrust Admin Console and query them using natural language inside Excel.",
+      badge: "Demo Setup"
     }
   ];
 
@@ -57,7 +63,7 @@ export default function ExcelAddinDocs() {
         </div>
 
         {/* ─── INTERACTIVE STEPS NAVIGATION ─────────────────────────── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '40px' }} className="steps-nav-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '12px', marginBottom: '40px' }} className="steps-nav-grid">
           {steps.map((s) => (
             <button
               key={s.num}
@@ -285,6 +291,76 @@ export default function ExcelAddinDocs() {
                   You are now connected to the semantic layer model and can run one-click data updates, trigger quality validations, and search metrics using plain-English queries.
                 </span>
               </div>
+            </div>
+          )}
+
+          {/* STEP 5 */}
+          {activeStep === 5 && (
+            <div className="animate-fade">
+              <h3 style={{ color: '#fff', fontSize: '22px', fontWeight: '700', marginTop: 0, marginBottom: '20px' }}>
+                Step 5: Load Demo Dataset & Test NLQ (No-Code UI Flow)
+              </h3>
+              <p style={{ lineHeight: '1.6', color: '#94A3B8', fontSize: '14px' }}>
+                Follow this step-by-step guide to load the DataTrust Demo training pack and test the entire ecosystem without writing a single line of SQL:
+              </p>
+
+              <h4 style={{ color: '#FFFFFF', fontSize: '15px', fontWeight: '700', marginTop: '20px', marginBottom: '12px' }}>1. Configure Connection & Select Datasets</h4>
+              <ol style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '14px', lineHeight: '1.6', color: '#CBD5E1', marginBottom: '20px' }}>
+                <li>Open the <strong>DataTrust Admin Console</strong>.</li>
+                <li>Navigate to the <strong>Connections</strong> tab.</li>
+                <li>Select your Snowflake connection and click on <strong>Select Ingestion Tables</strong>.</li>
+                <li>
+                  Check all 10 unified datasets:
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px', margin: '8px 0', fontSize: '12px', color: '#00BFA5', fontFamily: 'monospace' }}>
+                    <div>☑ DIM_METRIC</div>
+                    <div>☑ DIM_RULE</div>
+                    <div>☑ DIM_PIPELINE</div>
+                    <div>☑ DIM_TEMPLATE</div>
+                    <div>☑ DIM_PATTERN</div>
+                    <div>☑ FACT_QUALITY_VIOLATION</div>
+                    <div>☑ FACT_USER_ACTION</div>
+                    <div>☑ FACT_TIMESERIES</div>
+                    <div>☑ FACT_NLQ_QUERY</div>
+                    <div>☑ META_SCHEMA</div>
+                  </div>
+                </li>
+                <li>Click <strong>Save Selection</strong>.</li>
+                <li>Go to the <strong>Semantic Layer</strong> tab and click the 🔄 <strong>Sync</strong> button to auto-cache the metadata and column catalog.</li>
+              </ol>
+
+              <h4 style={{ color: '#FFFFFF', fontSize: '15px', fontWeight: '700', marginBottom: '12px' }}>2. Configure Semantic Layers & Metrics</h4>
+              <ol style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '14px', lineHeight: '1.6', color: '#CBD5E1', marginBottom: '20px' }}>
+                <li>Go to <strong>Semantic Layer</strong> &gt; <strong>New Metric</strong>.</li>
+                <li>
+                  Fill out the form:
+                  <ul style={{ listStyleType: 'circle', paddingLeft: '20px', margin: '6px 0', color: '#94A3B8' }}>
+                    <li><strong>Metric Name:</strong> Revenue</li>
+                    <li><strong>Source Table:</strong> <code>FACT_TIMESERIES</code></li>
+                    <li><strong>Column:</strong> <code>total_revenue</code></li>
+                    <li><strong>Aggregation:</strong> SUM</li>
+                  </ul>
+                </li>
+                <li>Click <strong>Save Metric</strong>.</li>
+                <li>Go to the <strong>Relationships</strong> tab &gt; click <strong>Add Relationship</strong>:</li>
+                <div style={{ background: '#0D1117', padding: '10px', borderRadius: '8px', fontSize: '12px', fontFamily: 'monospace', color: '#818CF8', margin: '6px 0' }}>
+                  From: FACT_QUALITY_VIOLATION.rule_name &rarr; To: DIM_RULE.rule_name (Type: Foreign Key)
+                </div>
+              </ol>
+
+              <h4 style={{ color: '#FFFFFF', fontSize: '15px', fontWeight: '700', marginBottom: '12px' }}>3. Test Quality Rules & NLQ in Excel</h4>
+              <ol style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '14px', lineHeight: '1.6', color: '#CBD5E1' }}>
+                <li>Go to <strong>Quality Engine</strong> &gt; <strong>Run Validation</strong> to trigger a schema-wide scan.</li>
+                <li>Open the <strong>Excel Add-in</strong> sidebar on your desktop workbook.</li>
+                <li>
+                  In the NLQ search ribbon, ask a plain-English question:
+                  <div style={{ background: '#0D1117', padding: '10px 14px', borderRadius: '8px', fontFamily: 'monospace', fontSize: '13px', color: '#FCD34D', border: '1px solid rgba(255,255,255,0.05)', margin: '8px 0', fontStyle: 'italic' }}>
+                    "What was total revenue in January?"
+                  </div>
+                </li>
+                <li>
+                  The system will automatically parse the question, map it to the semantic layer, execute the SQL query on Snowflake, and load the correct numbers directly into your spreadsheet cell!
+                </li>
+              </ol>
             </div>
           )}
 

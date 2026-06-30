@@ -785,6 +785,8 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
               <a href="/?view=pipeline-engine-v2" onClick={(e) => { e.preventDefault(); setView('pipeline-engine-v2'); }}>⚙️ V3 Pipeline Stage Logs</a>
               <a href="/?view=intelligence-layer" onClick={(e) => { e.preventDefault(); setView('intelligence-layer'); }}>🔮 V3 AI Inference Layer</a>
               <a href="/?view=notification-system" onClick={(e) => { e.preventDefault(); setView('notification-system'); }}>🔔 V3 Alert Routing Engine</a>
+              <a href="/?view=autodoc-hld" onClick={(e) => { e.preventDefault(); setView('autodoc-hld'); }}>🤖 V3 Auto-Documentation HLD</a>
+              <a href="/?view=semantic-search-hld" onClick={(e) => { e.preventDefault(); setView('semantic-search-hld'); }}>🔍 V3 Semantic Search HLD</a>
             </div>
           </li>
 
@@ -802,6 +804,8 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
           </li>
 
           <li><a href="#" onClick={(e) => { e.preventDefault(); setView('v3'); }} style={{ color: '#00BFA5', fontWeight: 'bold' }}>V3.0 Launch Hub ✨</a></li>
+          <li><a href="#" onClick={(e) => { e.preventDefault(); setView('excel-addin-docs'); }} style={{ color: '#818CF8', fontWeight: 'bold' }}>Excel Add-in Guide 🔌</a></li>
+          <li><a href="#" onClick={(e) => { e.preventDefault(); setView('nvidia-models'); }} style={{ color: '#10B981', fontWeight: 'bold' }}>NVIDIA Model Hub 🟢</a></li>
           <li><a href="#roi" onClick={(e) => { e.preventDefault(); setView('landing'); setTimeout(() => { document.getElementById('roi')?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>ROI</a></li>
           <li><a href="#pricing" onClick={(e) => { e.preventDefault(); setView('landing'); setTimeout(() => { document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>Pricing</a></li>
           <li>
