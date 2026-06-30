@@ -552,7 +552,7 @@ bq load --source_format=CSV \\
       
       {/* ─── QUICK START COMMAND ────────────────────────────────────── */}
       <h3 style={{ color: '#fff', fontSize: '20px', fontWeight: '700', marginBottom: '16px' }}>6. Quick Start Run Command</h3>
-      <div style={{ display: 'flex', alignItems: 'center', justify&copy;Content: 'space-between', padding: '16px 20px', background: '#0D1117', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: '#0D1117', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px' }}>
         <code style={{ color: '#F43F5E', fontSize: '13px', fontFamily: 'monospace' }}>
           python upload_to_warehouse.py --dir /path/to/csv --warehouse snowflake
         </code>
