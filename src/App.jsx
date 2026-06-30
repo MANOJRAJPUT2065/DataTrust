@@ -28,6 +28,7 @@ import ModelTrainingDocs from './components/ModelTrainingDocs';
 import NvidiaModelsDocs from './components/NvidiaModelsDocs';
 import AutoDocDocs from './components/AutoDocDocs';
 import SemanticSearchDocs from './components/SemanticSearchDocs';
+import DatasetTransportationDocs from './components/DatasetTransportationDocs';
 
 
 
@@ -339,7 +340,7 @@ export default function App() {
     'case-studies', 'case-studies-hld', 'investor-pitch', 'semantic-engine-v2', 'quality-engine-v2',
     'audit-engine-v2', 'data-flow', 'pipeline-engine-v2', 'intelligence-layer', 'notification-system',
     'how-it-works', 'user-journey', 'excel-addin-docs', 'testing-guide', 'model-training', 'nvidia-models',
-    'autodoc-hld', 'semantic-search-hld', 'governance-framework', 'security-compliance'
+    'autodoc-hld', 'semantic-search-hld', 'governance-framework', 'security-compliance', 'dataset-transportation'
   ];
 
   const isDocView = docViews.includes(view);
@@ -378,6 +379,7 @@ export default function App() {
           {view === 'nvidia-models' && <NvidiaModelsDocs />}
           {view === 'autodoc-hld' && <AutoDocDocs />}
           {view === 'semantic-search-hld' && <SemanticSearchDocs />}
+          {view === 'dataset-transportation' && <DatasetTransportationDocs />}
         </DocsLayout>
       ) : view === 'version3' ? (
         <Version3 />
