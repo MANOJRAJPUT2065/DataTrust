@@ -775,6 +775,7 @@ export default function LandingPage({ onEnterWorkspace, setView }) {
             <div className="nav-dropdown-content" onClick={() => setIsMobileMenuOpen(false)}>
               <a href="/?view=architecture-hld" onClick={(e) => { e.preventDefault(); setView('architecture-hld'); }}>📐 Core Architecture HLD</a>
               <a href="/?view=data-flow" onClick={(e) => { e.preventDefault(); setView('data-flow'); }}>📊 E2E Data Flow Lifecycle</a>
+              <a href="/?view=dataset-transportation" onClick={(e) => { e.preventDefault(); setView('dataset-transportation'); }}>🚚 Dataset Transportation HLD</a>
               <a href="/?view=post-sync-arch" onClick={(e) => { e.preventDefault(); setView('post-sync-arch'); }}>🔄 Post-Sync Lifecycle</a>
               <a href="/?view=metadata-sync" onClick={(e) => { e.preventDefault(); setView('metadata-sync'); }}>🗄️ Metadata Sync Cache</a>
               <a href="/?view=redis-sync" onClick={(e) => { e.preventDefault(); setView('redis-sync'); }}>⚡ Redis Pub/Sub Live Sync</a>
